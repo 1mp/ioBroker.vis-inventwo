@@ -51,12 +51,14 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Widget.Color",
 					name: "Widget-Color",
+					role: "inventwo.dark.color",
 					write: false,
 					def: "#333333",
 					unit: ""
 				},
 				{
 					dp: "Widget.Active-Color",
+					role: "inventwo.dark.color",
 					name: "Widget-Active-Color",
 					write: false,
 					def: "#455618",
@@ -65,6 +67,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Widget.Radius",
 					name: "Widget-Radius",
+					role: "inventwo.dark.radius",
 					def: "12px 0px 12px 0px",
 					write: false,
 					unit: ""
@@ -72,6 +75,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Widget.Shadow-Blur",
 					name: "Widget-Shadow-Blur",
+					role: "inventwo.dark.blur",
 					write: false,
 					def: "2",
 					unit: "px"
@@ -79,6 +83,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Widget.Shadow-X",
 					name: "Widget-Shadow-X",
+					role: "inventwo.dark.x",
 					write: false,
 					def: "2",
 					unit: "px"
@@ -86,6 +91,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Widget.Shadow-Y",
 					name: "Widget-Shadow-Y",
+					role: "inventwo.dark.y",
 					write: false,
 					def: "2",
 					unit: "px"
@@ -93,6 +99,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Widget.Shadow-Size",
 					name: "Widget-Shadow-Size",
+					role: "inventwo.dark.size",
 					write: false,
 					def: "1",
 					unit: "px"
@@ -100,6 +107,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Widget.Shadow-Color",
 					name: "Widget-Shadow-Color",
+					role: "inventwo.dark.color",
 					write: false,
 					def: "#111111",
 					unit: ""
@@ -107,6 +115,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Widget.Shadow-Active-Color",
 					name: "Widget-Shadow-Active-Color",
+					role: "inventwo.dark.color",
 					write: false,
 					def: "#111111",
 					unit: ""
@@ -114,6 +123,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Widget.Border-Size",
 					name: "Widget-Border-Size",
+					role: "inventwo.dark.size",
 					write: false,
 					def: "0",
 					unit: "px"
@@ -121,6 +131,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Widget.Border-Color",
 					name: "Widget-Border-Color",
+					role: "inventwo.dark.color",
 					write: false,
 					def: "#FFFFFF",
 					unit: ""
@@ -128,6 +139,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Widget.Border-Active-Color",
 					name: "Widget-Border-Active-Color",
+					role: "inventwo.dark.color",
 					write: false,
 					def: "#FFFFFF",
 					unit: ""
@@ -135,6 +147,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Widget.Opacity",
 					name: "Widget-Opacity",
+					role: "inventwo.dark.opacity",
 					write: false,
 					def: "1",
 					unit: ""
@@ -143,6 +156,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Content.Text-Color",
 					name: "Content-Text-Color",
+					role: "inventwo.dark.color",
 					write: false,
 					def: "#FFFFFF",
 					unit: ""
@@ -150,6 +164,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Content.Text-Size",
 					name: "Content-Text-Size",
+					role: "inventwo.dark.size",
 					write: false,
 					def: "12",
 					unit: "px"
@@ -157,6 +172,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Content.Shadow-Blur",
 					name: "Content-Shadow-Blur",
+					role: "inventwo.dark.blur",
 					write: false,
 					def: "0",
 					unit: "px"
@@ -164,6 +180,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Content.Shadow-X",
 					name: "Content-Shadow-X",
+					role: "inventwo.dark.x",
 					write: false,
 					def: "0",
 					unit: "px"
@@ -171,6 +188,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Content.Shadow-Y",
 					name: "Content-Shadow-Y",
+					role: "inventwo.dark.y",
 					write: false,
 					def: "0",
 					unit: "px"
@@ -178,6 +196,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Content.Shadow-Size",
 					name: "Content-Shadow-Size",
+					role: "inventwo.dark.size",
 					write: false,
 					def: "0",
 					unit: "px"
@@ -185,6 +204,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Content.Shadow-Color",
 					name: "Content-Shadow-Color",
+					role: "inventwo.dark.size",
 					write: false,
 					def: "#111111",
 					unit: ""
@@ -192,6 +212,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Content.Shadow-Active-Color",
 					name: "Content-Shadow-Active-Color",
+					role: "inventwo.dark.size",
 					write: false,
 					def: "#111111",
 					unit: ""
@@ -199,6 +220,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Content.Opacity",
 					name: "Content-Opacity",
+					role: "inventwo.dark.opacity",
 					write: false,
 					def: "1",
 					unit: ""
@@ -207,6 +229,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Background.URL",
 					name: "Background-URL",
+					role: "inventwo.dark.url",
 					write: false,
 					def: "localhost",
 					unit: ""
@@ -214,6 +237,7 @@ class visInventwo extends utils.Adapter {
 				{
 					dp: "Background.Opacity",
 					name: "Background-Opacity",
+					role: "inventwo.dark.opacity",
 					write: false,
 					def: "1",
 					unit: ""
@@ -223,7 +247,241 @@ class visInventwo extends utils.Adapter {
 
 			],
 			"Custom-Theme": [
-
+				//WIDGET CUSTOM
+				{
+					dp: "Widget.Color",
+					name: "Widget-Color",
+					role: "inventwo.custom.color",
+					write: true,
+					def: "#333333",
+					unit: ""
+				},
+				{
+					dp: "Widget.Color-Alt1",
+					name: "Widget-Color-Alt1",
+					role: "inventwo.custom.color",
+					write: true,
+					def: "#888888",
+					unit: ""
+				},
+				{
+					dp: "Widget.Color-Alt2",
+					name: "Widget-Color-Alt2",
+					role: "inventwo.custom.color",
+					write: true,
+					def: "#393939",
+					unit: ""
+				},
+				{
+					dp: "Widget.Color-Alt3",
+					name: "Widget-Color-Alt3",
+					role: "inventwo.custom.color",
+					write: true,
+					def: "repeating-linear-gradient(-45deg, #333333 0px, #333333 15px, #393939 15px, #393939 30px, #333333 30px)",
+					unit: ""
+				},
+				{
+					dp: "Widget.Active-Color",
+					name: "Widget-Active-Color",
+					role: "inventwo.custom.color",
+					write: true,
+					def: "#455618",
+					unit: ""
+				},
+				{
+					dp: "Widget.Active-Color-Alt1",
+					name: "Widget-Active-Color-Alt1",
+					role: "inventwo.custom.color",
+					write: true,
+					def: "#455618",
+					unit: "repeating-linear-gradient(-45deg, #455618 0px, #455618 15px, #393939 15px, #393939 30px, #455618 30px)"
+				},
+				{
+					dp: "Widget.Radius",
+					name: "Widget-Radius",
+					role: "inventwo.custom.radius",
+					def: "20px 0px 20px 0px",
+					write: true,
+					unit: ""
+				},
+				{
+					dp: "Widget.Shadow-Blur",
+					name: "Widget-Shadow-Blur",
+					role: "inventwo.custom.blur",
+					write: true,
+					def: "2",
+					unit: "px"
+				},
+				{
+					dp: "Widget.Shadow-X",
+					name: "Widget-Shadow-X",
+					role: "inventwo.custom.x",
+					write: true,
+					def: "2",
+					unit: "px"
+				},
+				{
+					dp: "Widget.Shadow-Y",
+					name: "Widget-Shadow-Y",
+					role: "inventwo.custom.y",
+					write: true,
+					def: "2",
+					unit: "px"
+				},
+				{
+					dp: "Widget.Shadow-Size",
+					name: "Widget-Shadow-Size",
+					role: "inventwo.custom.size",
+					write: true,
+					def: "1",
+					unit: "px"
+				},
+				{
+					dp: "Widget.Shadow-Color",
+					name: "Widget-Shadow-Color",
+					role: "inventwo.custom.color",
+					write: true,
+					def: "#111111",
+					unit: ""
+				},
+				{
+					dp: "Widget.Shadow-Active-Color",
+					name: "Widget-Shadow-Active-Color",
+					role: "inventwo.custom.color",
+					write: true,
+					def: "#111111",
+					unit: ""
+				},
+				{
+					dp: "Widget.Border-Size",
+					name: "Widget-Border-Size",
+					role: "inventwo.custom.size",
+					write: true,
+					def: "0",
+					unit: "px"
+				},
+				{
+					dp: "Widget.Border-Color",
+					name: "Widget-Border-Color",
+					role: "inventwo.custom.color",
+					write: true,
+					def: "#FFFFFF",
+					unit: ""
+				},
+				{
+					dp: "Widget.Border-Active-Color",
+					name: "Widget-Border-Active-Color",
+					role: "inventwo.custom.color",
+					write: true,
+					def: "#FFFFFF",
+					unit: ""
+				},
+				{
+					dp: "Widget.Opacity",
+					name: "Widget-Opacity",
+					role: "inventwo.custom.opacity",
+					write: true,
+					def: "0.7",
+					unit: ""
+				},
+				// CONTENT CUSTOM
+				{
+					dp: "Content.Text-Color",
+					name: "Content-Text-Color",
+					role: "inventwo.custom.color",
+					write: true,
+					def: "#FFFFFF",
+					unit: ""
+				},
+				{
+					dp: "Content.Text-Size",
+					name: "Content-Text-Size",
+					role: "inventwo.custom.size",
+					write: true,
+					def: "14",
+					unit: "px"
+				},
+				{
+					dp: "Content.Text-Size-Alt1",
+					name: "Content-Text-Size-Alt1",
+					role: "inventwo.custom.size",
+					write: true,
+					def: "29",
+					unit: "px"
+				},
+				{
+					dp: "Content.Shadow-Blur",
+					name: "Content-Shadow-Blur",
+					role: "inventwo.custom.blur",
+					write: true,
+					def: "5",
+					unit: "px"
+				},
+				{
+					dp: "Content.Shadow-X",
+					name: "Content-Shadow-X",
+					role: "inventwo.custom.x",
+					write: false,
+					def: "0",
+					unit: "px"
+				},
+				{
+					dp: "Content.Shadow-Y",
+					name: "Content-Shadow-Y",
+					role: "inventwo.custom.y",
+					write: false,
+					def: "0",
+					unit: "px"
+				},
+				{
+					dp: "Content.Shadow-Size",
+					name: "Content-Shadow-Size",
+					role: "inventwo.custom.size",
+					write: false,
+					def: "2",
+					unit: "px"
+				},
+				{
+					dp: "Content.Shadow-Color",
+					name: "Content-Shadow-Color",
+					role: "inventwo.custom.size",
+					write: false,
+					def: "#666666",
+					unit: ""
+				},
+				{
+					dp: "Content.Shadow-Active-Color",
+					name: "Content-Shadow-Active-Color",
+					role: "inventwo.custom.size",
+					write: false,
+					def: "#666666",
+					unit: ""
+				},
+				{
+					dp: "Content.Opacity",
+					name: "Content-Opacity",
+					role: "inventwo.custom.opacity",
+					write: false,
+					def: "0.9",
+					unit: ""
+				},
+				// BACKGROUND CUSTOM
+				{
+					dp: "Background.URL",
+					name: "Background-URL",
+					role: "inventwo.custom.url",
+					write: false,
+					def: "{0_userdata.0.VIS.Wallpaper}",
+					unit: "0.5"
+				},
+				{
+					dp: "Background.Opacity",
+					name: "Background-Opacity",
+					role: "inventwo.custom.opacity",
+					write: false,
+					def: "1",
+					unit: ""
+				},
 			]
 		};
 
@@ -236,7 +494,7 @@ class visInventwo extends utils.Adapter {
 					common: {
 						name: val.name,
 						type: "string",
-						role: "inventwo.CSS",
+						role: val.role,
 						read: true,
 						write: val.write,
 						def: val.def,
@@ -251,30 +509,13 @@ class visInventwo extends utils.Adapter {
 		// in this template all states changes inside the adapters namespace are subscribed
 
 		//Widget
-		this.subscribeStates("CSS.Default-Theme.Widget.Color");
-		this.subscribeStates("CSS.Default-Theme.Widget.Active-Color");
-		this.subscribeStates("CSS.Default-Theme.Widget.Radius");
-		this.subscribeStates("CSS.Default-Theme.Widget.Shadow-Blur");
-		this.subscribeStates("CSS.Default-Theme.Widget.Shadow-Size");
-		this.subscribeStates("CSS.Default-Theme.Widget.Shadow-Color");
-		this.subscribeStates("CSS.Default-Theme.Widget.Shadow-Active-Color");
-		this.subscribeStates("CSS.Default-Theme.Widget.Border-Size");
-		this.subscribeStates("CSS.Default-Theme.Widget.Border-Color");
-		this.subscribeStates("CSS.Default-Theme.Widget.Border-Active-Color");
-		this.subscribeStates("CSS.Default-Theme.Widget.Opacity");
+		//this.subscribeStates("CSS.Default-Theme.Widget.Color");
 
 		//CONTENT
-		this.subscribeStates("CSS.Default-Theme.Content.Text-Color");
-		this.subscribeStates("CSS.Default-Theme.Content.Text-Size");
-		this.subscribeStates("CSS.Default-Theme.Content.Shadow-Blur");
-		this.subscribeStates("CSS.Default-Theme.Content.Shadow-Size");
-		this.subscribeStates("CSS.Default-Theme.Content.Shadow-Color");
-		this.subscribeStates("CSS.Default-Theme.Content.Shadow-Active-Color");
-		this.subscribeStates("CSS.Default-Theme.Content.Opacity");
+		//this.subscribeStates("CSS.Default-Theme.Content.Text-Color");
 
 		//BACKGROUND
-		this.subscribeStates("CSS.Default-Theme.Background.URL");
-		this.subscribeStates("CSS.Default-Theme.Background.Opacity");
+		//this.subscribeStates("CSS.Default-Theme.Background.URL");
 
 		/*
 		setState examples
