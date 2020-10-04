@@ -43,13 +43,14 @@ class visInventwo extends utils.Adapter {
             "Config": {
                 type: "channel",
                 name: "Configuration",
-                icon: "lib/job.png",
+                role: "config",
+                icon: "lib/config_c.png",
                 channels: {},
                 dps: [
                     {
                         dp: "Theme-Active",
                         name: "Active Theme",
-                        states: "inventwo:inventwo;Dark:Dark;Light:Light",
+                        states: "Dark:Dark;Light:Light",
                         role: "themes",
                         def: "Dark",
                         unit: ""
@@ -57,21 +58,22 @@ class visInventwo extends utils.Adapter {
                 ]
             },
 
-            "CSS": {
+            "Themes": {
                 type: "channel",
-                icon: "lib/css.png",
-                name: "CSS",
+                icon: "lib/change_c.png",
+                name: "Themes",
+                role: "config",
                 channels: {
                     "Dark-Theme": {
                         type: "channel",
-                        icon: "lib/night.png",
+                        icon: "lib/dark_c.png",
                         name: "Dark-Theme",
                         role: "dark",
                         channels: {
-                            "01_Widget": {
+                            "Widget-Background": {
                                 type: "channel",
-                                icon: "lib/night.png",
-                                name: "Widgets",
+                                icon: "lib/dark_c.png",
+                                name: "Widget-Background",
                                 role: "widgets",
                                 dps: [
                                     {
@@ -175,10 +177,10 @@ class visInventwo extends utils.Adapter {
                                     }
                                 ]
                             },
-                            "02_Content": {
+                            "Widget-Content": {
                                 type: "channel",
-                                icon: "lib/night.png",
-                                name: "Content",
+                                icon: "lib/dark_c.png",
+                                name: "Widget-Content",
                                 role: "content",
                                 dps: [
                                     {
@@ -246,10 +248,10 @@ class visInventwo extends utils.Adapter {
                                     }
                                 ]
                             },
-                            "03_Background": {
+                            "View-Background": {
                                 type: "channel",
-                                icon: "lib/night.png",
-                                name: "Background",
+                                icon: "lib/dark_c.png",
+                                name: "View-Background",
                                 role: "background",
                                 dps: [
                                     {
@@ -272,14 +274,15 @@ class visInventwo extends utils.Adapter {
                     },
                     "Light-Theme": {
                         type: "channel",
-                        icon: "lib/night.png",
+                        icon: "lib/light_c.png",
                         name: "Light-Theme",
                         role: "light",
                         channels: {
-                            "01_Widget": {
+                            "Widget-Background": {
                                 type: "channel",
-                                icon: "lib/day.png",
-                                name: "",
+                                icon: "lib/light_c.png",
+                                name: "Widget-Background",
+                                role: "widgets",
                                 dps: [
                                     {
                                         dp: "Color",
@@ -382,10 +385,11 @@ class visInventwo extends utils.Adapter {
                                     }
                                 ]
                             },
-                            "02_Content": {
+                            "Widget-Content": {
                                 type: "channel",
-                                icon: "lib/night.png",
-                                name: "",
+                                icon: "lib/light_c.png",
+                                name: "Widget-Content",
+                                role: "content",
                                 dps: [
                                     {
                                         dp: "Text-Color",
@@ -452,10 +456,219 @@ class visInventwo extends utils.Adapter {
                                     }
                                 ]
                             },
-                            "03_Background": {
+                            "View-Background": {
                                 type: "channel",
-                                icon: "lib/night.png",
-                                name: "",
+                                icon: "lib/light_c.png",
+                                name: "View-Background",
+                                role: "background",
+                                dps: [
+                                    {
+                                        dp: "URL",
+                                        name: "Background-URL",
+                                        role: "url",
+                                        def: "localhost",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Opacity",
+                                        name: "Background-Opacity",
+                                        role: "opacity",
+                                        def: "1",
+                                        unit: ""
+                                    }
+                                ]
+                            }
+                        }
+                    },
+                    "Custom": {
+                        type: "channel",
+                        icon: "lib/custom_c.png",
+                        name: "Custom",
+                        role: "custom",
+                        channels: {
+                            "Widget-Background": {
+                                type: "channel",
+                                icon: "lib/custom_c.png",
+                                name: "Widget-Background",
+                                role: "widgets",
+                                dps: [
+                                    {
+                                        dp: "Color",
+                                        name: "Widget-Color",
+                                        role: "color",
+                                        def: "#333333",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Active-Color",
+                                        role: "color",
+                                        name: "Widget-Active-Color",
+                                        def: "#455618",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Radius",
+                                        name: "Widget-Radius",
+                                        role: "radius",
+                                        def: "12px 0px 12px 0px",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Shadow-Blur",
+                                        name: "Widget-Shadow-Blur",
+                                        role: "blur",
+                                        def: "2",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-X",
+                                        name: "Widget-Shadow-X",
+                                        role: "x",
+                                        def: "2",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-Y",
+                                        name: "Widget-Shadow-Y",
+                                        role: "y",
+                                        def: "2",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-Size",
+                                        name: "Widget-Shadow-Size",
+                                        role: "size",
+                                        def: "1",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-Color",
+                                        name: "Widget-Shadow-Color",
+                                        role: "color",
+                                        def: "#111111",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Shadow-Active-Color",
+                                        name: "Widget-Shadow-Active-Color",
+                                        role: "color",
+                                        def: "#111111",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Border-Size",
+                                        name: "Widget-Border-Size",
+                                        role: "size",
+                                        def: "0",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Border-Style",
+                                        name: "Widget-Border-Style",
+                                        role: "style",
+                                        states: "dotted:dotted;dashed:dashed;solid:solid;double:double;groove:groove;ridge:ridge;insert:insert;outset:outset;none:none",
+                                        def: "none:none",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Border-Color",
+                                        name: "Widget-Border-Color",
+                                        role: "color",
+                                        def: "#FFFFFF",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Border-Active-Color",
+                                        name: "Widget-Border-Active-Color",
+                                        role: "color",
+                                        def: "#FFFFFF",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Opacity",
+                                        name: "Widget-Opacity",
+                                        role: "opacity",
+                                        def: "1",
+                                        unit: ""
+                                    }
+                                ]
+                            },
+                            "Widget-Content": {
+                                type: "channel",
+                                icon: "lib/custom_c.png",
+                                name: "Widget-Content",
+                                role: "content",
+                                dps: [
+                                    {
+                                        dp: "Text-Color",
+                                        name: "Content-Text-Color",
+                                        role: "color",
+                                        def: "#FFFFFF",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Text-Size",
+                                        name: "Content-Text-Size",
+                                        role: "size",
+                                        def: "12",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-Blur",
+                                        name: "Content-Shadow-Blur",
+                                        role: "blur",
+                                        def: "0",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-X",
+                                        name: "Content-Shadow-X",
+                                        role: "x",
+                                        def: "0",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-Y",
+                                        name: "Content-Shadow-Y",
+                                        role: "y",
+                                        def: "0",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-Size",
+                                        name: "Content-Shadow-Size",
+                                        role: "size",
+                                        def: "0",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-Color",
+                                        name: "Content-Shadow-Color",
+                                        role: "size",
+                                        def: "#111111",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Shadow-Active-Color",
+                                        name: "Content-Shadow-Active-Color",
+                                        role: "size",
+                                        def: "#111111",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Opacity",
+                                        name: "Content-Opacity",
+                                        role: "opacity",
+                                        def: "1",
+                                        unit: ""
+                                    }
+                                ]
+                            },
+                            "View-Background": {
+                                type: "channel",
+                                icon: "lib/custom_c.png",
+                                name: "View-Background",
+                                role: "background",
                                 dps: [
                                     {
                                         dp: "URL",
@@ -486,7 +699,6 @@ class visInventwo extends utils.Adapter {
         setTimeout(function () {
             adapter.createStates(states, "");
         }, 2000);
-
     }
 
     // Function to create states and channels

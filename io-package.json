@@ -260,5 +260,15 @@
   },
   "native": {},
   "objects": [],
-  "instanceObjects": []
+  "instanceObjects": [
+    {
+      "_id": "",
+      "type": "meta",
+      "common": {
+        "name": "inventwo Design Adapter",
+        "type": "meta.user"
+      },
+      "native": {}
+    }
+  ]
 }
