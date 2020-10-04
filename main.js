@@ -50,7 +50,7 @@ class visInventwo extends utils.Adapter {
                         dp: "Theme-Active",
                         name: "Active Theme",
                         states: "inventwo:inventwo;Dark:Dark;Light:Light",
-                        role: "inventwo.themes",
+                        role: "themes",
                         def: "Dark",
                         unit: ""
                     }
@@ -66,374 +66,415 @@ class visInventwo extends utils.Adapter {
                         type: "channel",
                         icon: "lib/night.png",
                         name: "Dark-Theme",
-                        dps: [
-                            // WIDGET DARK
-                            {
-                                dp: "01_Widget.Color",
-                                name: "Widget-Color",
-                                role: "inventwo.dark.color",
-                                def: "#333333",
-                                unit: ""
+                        role: "dark",
+                        channels: {
+                            "01_Widget": {
+                                type: "channel",
+                                icon: "lib/night.png",
+                                name: "Widgets",
+                                role: "widgets",
+                                dps: [
+                                    {
+                                        dp: "Color",
+                                        name: "Widget-Color",
+                                        role: "color",
+                                        def: "#333333",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Active-Color",
+                                        role: "color",
+                                        name: "Widget-Active-Color",
+                                        def: "#455618",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Radius",
+                                        name: "Widget-Radius",
+                                        role: "radius",
+                                        def: "12px 0px 12px 0px",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Shadow-Blur",
+                                        name: "Widget-Shadow-Blur",
+                                        role: "blur",
+                                        def: "2",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-X",
+                                        name: "Widget-Shadow-X",
+                                        role: "x",
+                                        def: "2",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-Y",
+                                        name: "Widget-Shadow-Y",
+                                        role: "y",
+                                        def: "2",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-Size",
+                                        name: "Widget-Shadow-Size",
+                                        role: "size",
+                                        def: "1",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-Color",
+                                        name: "Widget-Shadow-Color",
+                                        role: "color",
+                                        def: "#111111",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Shadow-Active-Color",
+                                        name: "Widget-Shadow-Active-Color",
+                                        role: "color",
+                                        def: "#111111",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Border-Size",
+                                        name: "Widget-Border-Size",
+                                        role: "size",
+                                        def: "0",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Border-Style",
+                                        name: "Widget-Border-Style",
+                                        role: "style",
+                                        states: "dotted:dotted;dashed:dashed;solid:solid;double:double;groove:groove;ridge:ridge;insert:insert;outset:outset;none:none",
+                                        def: "none:none",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Border-Color",
+                                        name: "Widget-Border-Color",
+                                        role: "color",
+                                        def: "#FFFFFF",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Border-Active-Color",
+                                        name: "Widget-Border-Active-Color",
+                                        role: "color",
+                                        def: "#FFFFFF",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Opacity",
+                                        name: "Widget-Opacity",
+                                        role: "opacity",
+                                        def: "1",
+                                        unit: ""
+                                    }
+                                ]
                             },
-                            {
-                                dp: "01_Widget.Active-Color",
-                                role: "inventwo.dark.color",
-                                name: "Widget-Active-Color",
-                                def: "#455618",
-                                unit: ""
+                            "02_Content": {
+                                type: "channel",
+                                icon: "lib/night.png",
+                                name: "Content",
+                                role: "content",
+                                dps: [
+                                    {
+                                        dp: "Text-Color",
+                                        name: "Content-Text-Color",
+                                        role: "color",
+                                        def: "#FFFFFF",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Text-Size",
+                                        name: "Content-Text-Size",
+                                        role: "size",
+                                        def: "12",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-Blur",
+                                        name: "Content-Shadow-Blur",
+                                        role: "blur",
+                                        def: "0",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-X",
+                                        name: "Content-Shadow-X",
+                                        role: "x",
+                                        def: "0",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-Y",
+                                        name: "Content-Shadow-Y",
+                                        role: "y",
+                                        def: "0",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-Size",
+                                        name: "Content-Shadow-Size",
+                                        role: "size",
+                                        def: "0",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-Color",
+                                        name: "Content-Shadow-Color",
+                                        role: "color",
+                                        def: "#111111",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Shadow-Active-Color",
+                                        name: "Content-Shadow-Active-Color",
+                                        role: "size",
+                                        def: "#111111",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Opacity",
+                                        name: "Content-Opacity",
+                                        role: "opacity",
+                                        def: "1",
+                                        unit: ""
+                                    }
+                                ]
                             },
-                            {
-                                dp: "01_Widget.Radius",
-                                name: "Widget-Radius",
-                                role: "inventwo.dark.radius",
-                                def: "12px 0px 12px 0px",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Shadow-Blur",
-                                name: "Widget-Shadow-Blur",
-                                role: "inventwo.dark.blur",
-                                def: "2",
-                                unit: "px"
-                            },
-                            {
-                                dp: "01_Widget.Shadow-X",
-                                name: "Widget-Shadow-X",
-                                role: "inventwo.dark.x",
-                                def: "2",
-                                unit: "px"
-                            },
-                            {
-                                dp: "01_Widget.Shadow-Y",
-                                name: "Widget-Shadow-Y",
-                                role: "inventwo.dark.y",
-                                def: "2",
-                                unit: "px"
-                            },
-                            {
-                                dp: "01_Widget.Shadow-Size",
-                                name: "Widget-Shadow-Size",
-                                role: "inventwo.dark.size",
-                                def: "1",
-                                unit: "px"
-                            },
-                            {
-                                dp: "01_Widget.Shadow-Color",
-                                name: "Widget-Shadow-Color",
-                                role: "inventwo.dark.color",
-                                def: "#111111",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Shadow-Active-Color",
-                                name: "Widget-Shadow-Active-Color",
-                                role: "inventwo.dark.color",
-                                def: "#111111",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Border-Size",
-                                name: "Widget-Border-Size",
-                                role: "inventwo.dark.size",
-                                def: "0",
-                                unit: "px"
-                            },
-                            {
-                                dp: "01_Widget.Border-Style",
-                                name: "Widget-Border-Style",
-                                role: "inventwo.dark.style",
-                                states: "dotted:dotted;dashed:dashed;solid:solid;double:double;groove:groove;ridge:ridge;insert:insert;outset:outset;none:none",
-                                def: "none:none",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Border-Color",
-                                name: "Widget-Border-Color",
-                                role: "inventwo.dark.color",
-                                def: "#FFFFFF",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Border-Active-Color",
-                                name: "Widget-Border-Active-Color",
-                                role: "inventwo.dark.color",
-                                def: "#FFFFFF",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Opacity",
-                                name: "Widget-Opacity",
-                                role: "inventwo.dark.opacity",
-                                def: "1",
-                                unit: ""
-                            },
-                            // CONTENT DARK
-                            {
-                                dp: "02_Content.Text-Color",
-                                name: "Content-Text-Color",
-                                role: "inventwo.dark.color",
-                                def: "#FFFFFF",
-                                unit: ""
-                            },
-                            {
-                                dp: "02_Content.Text-Size",
-                                name: "Content-Text-Size",
-                                role: "inventwo.dark.size",
-                                def: "12",
-                                unit: "px"
-                            },
-                            {
-                                dp: "02_Content.Shadow-Blur",
-                                name: "Content-Shadow-Blur",
-                                role: "inventwo.dark.blur",
-                                def: "0",
-                                unit: "px"
-                            },
-                            {
-                                dp: "02_Content.Shadow-X",
-                                name: "Content-Shadow-X",
-                                role: "inventwo.dark.x",
-                                def: "0",
-                                unit: "px"
-                            },
-                            {
-                                dp: "02_Content.Shadow-Y",
-                                name: "Content-Shadow-Y",
-                                role: "inventwo.dark.y",
-                                def: "0",
-                                unit: "px"
-                            },
-                            {
-                                dp: "02_Content.Shadow-Size",
-                                name: "Content-Shadow-Size",
-                                role: "inventwo.dark.size",
-                                def: "0",
-                                unit: "px"
-                            },
-                            {
-                                dp: "02_Content.Shadow-Color",
-                                name: "Content-Shadow-Color",
-                                role: "inventwo.dark.size",
-                                def: "#111111",
-                                unit: ""
-                            },
-                            {
-                                dp: "02_Content.Shadow-Active-Color",
-                                name: "Content-Shadow-Active-Color",
-                                role: "inventwo.dark.size",
-                                def: "#111111",
-                                unit: ""
-                            },
-                            {
-                                dp: "02_Content.Opacity",
-                                name: "Content-Opacity",
-                                role: "inventwo.dark.opacity",
-                                def: "1",
-                                unit: ""
-                            },
-                            // BACKGROUND DARK
-                            {
-                                dp: "03_Background.URL",
-                                name: "Background-URL",
-                                role: "inventwo.dark.url",
-                                def: "localhost",
-                                unit: ""
-                            },
-                            {
-                                dp: "03_Background.Opacity",
-                                name: "Background-Opacity",
-                                role: "inventwo.dark.opacity",
-                                def: "1",
-                                unit: ""
+                            "03_Background": {
+                                type: "channel",
+                                icon: "lib/night.png",
+                                name: "Background",
+                                role: "background",
+                                dps: [
+                                    {
+                                        dp: "URL",
+                                        name: "Background-URL",
+                                        role: "url",
+                                        def: "localhost",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Opacity",
+                                        name: "Background-Opacity",
+                                        role: "opacity",
+                                        def: "1",
+                                        unit: ""
+                                    }
+                                ]
                             }
-                        ]
+                        }
                     },
                     "Light-Theme": {
                         type: "channel",
-                        icon: "lib/day.png",
+                        icon: "lib/night.png",
                         name: "Light-Theme",
-                        dps: [
-                            // WIDGET LIGHT
-                            {
-                                dp: "01_Widget.Color",
-                                name: "Widget-Color",
-                                role: "inventwo.light.color",
-                                def: "#333333",
-                                unit: ""
+                        role: "light",
+                        channels: {
+                            "01_Widget": {
+                                type: "channel",
+                                icon: "lib/day.png",
+                                name: "",
+                                dps: [
+                                    {
+                                        dp: "Color",
+                                        name: "Widget-Color",
+                                        role: "color",
+                                        def: "#333333",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Active-Color",
+                                        role: "color",
+                                        name: "Widget-Active-Color",
+                                        def: "#455618",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Radius",
+                                        name: "Widget-Radius",
+                                        role: "radius",
+                                        def: "12px 0px 12px 0px",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Shadow-Blur",
+                                        name: "Widget-Shadow-Blur",
+                                        role: "blur",
+                                        def: "2",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-X",
+                                        name: "Widget-Shadow-X",
+                                        role: "x",
+                                        def: "2",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-Y",
+                                        name: "Widget-Shadow-Y",
+                                        role: "y",
+                                        def: "2",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-Size",
+                                        name: "Widget-Shadow-Size",
+                                        role: "size",
+                                        def: "1",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-Color",
+                                        name: "Widget-Shadow-Color",
+                                        role: "color",
+                                        def: "#111111",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Shadow-Active-Color",
+                                        name: "Widget-Shadow-Active-Color",
+                                        role: "color",
+                                        def: "#111111",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Border-Size",
+                                        name: "Widget-Border-Size",
+                                        role: "size",
+                                        def: "0",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Border-Style",
+                                        name: "Widget-Border-Style",
+                                        role: "style",
+                                        states: "dotted:dotted;dashed:dashed;solid:solid;double:double;groove:groove;ridge:ridge;insert:insert;outset:outset;none:none",
+                                        def: "none:none",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Border-Color",
+                                        name: "Widget-Border-Color",
+                                        role: "color",
+                                        def: "#FFFFFF",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Border-Active-Color",
+                                        name: "Widget-Border-Active-Color",
+                                        role: "color",
+                                        def: "#FFFFFF",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Opacity",
+                                        name: "Widget-Opacity",
+                                        role: "opacity",
+                                        def: "1",
+                                        unit: ""
+                                    }
+                                ]
                             },
-                            {
-                                dp: "01_Widget.Active-Color",
-                                role: "inventwo.light.color",
-                                name: "Widget-Active-Color",
-                                def: "#455618",
-                                unit: ""
+                            "02_Content": {
+                                type: "channel",
+                                icon: "lib/night.png",
+                                name: "",
+                                dps: [
+                                    {
+                                        dp: "Text-Color",
+                                        name: "Content-Text-Color",
+                                        role: "color",
+                                        def: "#FFFFFF",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Text-Size",
+                                        name: "Content-Text-Size",
+                                        role: "size",
+                                        def: "12",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-Blur",
+                                        name: "Content-Shadow-Blur",
+                                        role: "blur",
+                                        def: "0",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-X",
+                                        name: "Content-Shadow-X",
+                                        role: "x",
+                                        def: "0",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-Y",
+                                        name: "Content-Shadow-Y",
+                                        role: "y",
+                                        def: "0",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-Size",
+                                        name: "Content-Shadow-Size",
+                                        role: "size",
+                                        def: "0",
+                                        unit: "px"
+                                    },
+                                    {
+                                        dp: "Shadow-Color",
+                                        name: "Content-Shadow-Color",
+                                        role: "size",
+                                        def: "#111111",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Shadow-Active-Color",
+                                        name: "Content-Shadow-Active-Color",
+                                        role: "size",
+                                        def: "#111111",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Opacity",
+                                        name: "Content-Opacity",
+                                        role: "opacity",
+                                        def: "1",
+                                        unit: ""
+                                    }
+                                ]
                             },
-                            {
-                                dp: "01_Widget.Radius",
-                                name: "Widget-Radius",
-                                role: "inventwo.light.radius",
-                                def: "12px 0px 12px 0px",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Shadow-Blur",
-                                name: "Widget-Shadow-Blur",
-                                role: "inventwo.light.blur",
-                                def: "2",
-                                unit: "px"
-                            },
-                            {
-                                dp: "01_Widget.Shadow-X",
-                                name: "Widget-Shadow-X",
-                                role: "inventwo.light.x",
-                                def: "2",
-                                unit: "px"
-                            },
-                            {
-                                dp: "01_Widget.Shadow-Y",
-                                name: "Widget-Shadow-Y",
-                                role: "inventwo.light.y",
-                                def: "2",
-                                unit: "px"
-                            },
-                            {
-                                dp: "01_Widget.Shadow-Size",
-                                name: "Widget-Shadow-Size",
-                                role: "inventwo.light.size",
-                                def: "1",
-                                unit: "px"
-                            },
-                            {
-                                dp: "01_Widget.Shadow-Color",
-                                name: "Widget-Shadow-Color",
-                                role: "inventwo.light.color",
-                                def: "#111111",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Shadow-Active-Color",
-                                name: "Widget-Shadow-Active-Color",
-                                role: "inventwo.light.color",
-                                def: "#111111",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Border-Size",
-                                name: "Widget-Border-Size",
-                                role: "inventwo.light.size",
-                                def: "0",
-                                unit: "px"
-                            },
-                            {
-                                dp: "01_Widget.Border-Style",
-                                name: "Widget-Border-Style",
-                                role: "inventwo.light.style",
-                                states: "dotted:dotted;dashed:dashed;solid:solid;double:double;groove:groove;ridge:ridge;insert:insert;outset:outset;none:none",
-                                def: "none:none",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Border-Color",
-                                name: "Widget-Border-Color",
-                                role: "inventwo.light.color",
-                                def: "#FFFFFF",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Border-Active-Color",
-                                name: "Widget-Border-Active-Color",
-                                role: "inventwo.light.color",
-                                def: "#FFFFFF",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Opacity",
-                                name: "Widget-Opacity",
-                                role: "inventwo.light.opacity",
-                                def: "1",
-                                unit: ""
-                            },
-                            // CONTENT LIGHT
-                            {
-                                dp: "02_Content.Text-Color",
-                                name: "Content-Text-Color",
-                                role: "inventwo.light.color",
-                                def: "#FFFFFF",
-                                unit: ""
-                            },
-                            {
-                                dp: "02_Content.Text-Size",
-                                name: "Content-Text-Size",
-                                role: "inventwo.light.size",
-                                def: "12",
-                                unit: "px"
-                            },
-                            {
-                                dp: "02_Content.Shadow-Blur",
-                                name: "Content-Shadow-Blur",
-                                role: "inventwo.light.blur",
-                                def: "0",
-                                unit: "px"
-                            },
-                            {
-                                dp: "02_Content.Shadow-X",
-                                name: "Content-Shadow-X",
-                                role: "inventwo.light.x",
-                                def: "0",
-                                unit: "px"
-                            },
-                            {
-                                dp: "02_Content.Shadow-Y",
-                                name: "Content-Shadow-Y",
-                                role: "inventwo.light.y",
-                                def: "0",
-                                unit: "px"
-                            },
-                            {
-                                dp: "02_Content.Shadow-Size",
-                                name: "Content-Shadow-Size",
-                                role: "inventwo.light.size",
-                                def: "0",
-                                unit: "px"
-                            },
-                            {
-                                dp: "02_Content.Shadow-Color",
-                                name: "Content-Shadow-Color",
-                                role: "inventwo.light.size",
-                                def: "#111111",
-                                unit: ""
-                            },
-                            {
-                                dp: "02_Content.Shadow-Active-Color",
-                                name: "Content-Shadow-Active-Color",
-                                role: "inventwo.light.size",
-                                def: "#111111",
-                                unit: ""
-                            },
-                            {
-                                dp: "02_Content.Opacity",
-                                name: "Content-Opacity",
-                                role: "inventwo.light.opacity",
-                                def: "1",
-                                unit: ""
-                            },
-                            // BACKGROUND DARK
-                            {
-                                dp: "03_Background.URL",
-                                name: "Background-URL",
-                                role: "inventwo.light.url",
-                                def: "localhost",
-                                unit: ""
-                            },
-                            {
-                                dp: "03_Background.Opacity",
-                                name: "Background-Opacity",
-                                role: "inventwo.light.opacity",
-                                def: "1",
-                                unit: ""
+                            "03_Background": {
+                                type: "channel",
+                                icon: "lib/night.png",
+                                name: "",
+                                dps: [
+                                    {
+                                        dp: "URL",
+                                        name: "Background-URL",
+                                        role: "url",
+                                        def: "localhost",
+                                        unit: ""
+                                    },
+                                    {
+                                        dp: "Opacity",
+                                        name: "Background-Opacity",
+                                        role: "opacity",
+                                        def: "1",
+                                        unit: ""
+                                    }
+                                ]
                             }
-                        ]
-                    }
+                        }
+                    },
 
                 },
                 dps: []
@@ -463,6 +504,7 @@ class visInventwo extends utils.Adapter {
                     type: value.type,
                     common: {
                         name: value.name,
+                        role: "inventwo." + value.role,
                         icon: value.icon
                     },
                     native: {},
@@ -482,7 +524,7 @@ class visInventwo extends utils.Adapter {
                         name: value.name,
                         type: "string",
                         states: value.states,
-                        role: value.role,
+                        role: "inventwo." + value.role,
                         read: true,
                         write: true,
                         def: value.def,
