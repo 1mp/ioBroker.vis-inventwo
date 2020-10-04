@@ -266,6 +266,7 @@
       "type": "meta",
       "common": {
         "name": "inventwo Design Adapter",
+        "role":  "inventwo"
         "type": "meta.user"
       },
       "native": {}
