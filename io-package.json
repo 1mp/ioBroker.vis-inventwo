@@ -1,8 +1,20 @@
 {
   "common": {
     "name": "vis-inventwo",
-    "version": "2.3.2",
+    "version": "3.0.0",
     "news": {
+      "3.0.0": {
+        "en": "New dps structure",
+        "de": "Neue Datenpunktstruktur",
+        "ru": "новая структура данных",
+        "pt": "nova estrutura de dados",
+        "nl": "nieuwe datastructuur",
+        "fr": "nouvelle structure de données",
+        "it": "nuova struttura dati",
+        "es": "nueva estructura de datos",
+        "pl": "nowa struktura danych",
+        "zh-cn": "新的数据结构"
+      }
       "2.3.2": {
         "en": "Fixed bug with navigation in with 'View in Widget' Widget",
         "de": "Fehler bei der Navigation mit dem Widget 'View in Widget' behoben",
