@@ -14,7 +14,7 @@
         "es": "nueva estructura de datos",
         "pl": "nowa struktura danych",
         "zh-cn": "新的数据结构"
-      }
+      },
       "2.3.2": {
         "en": "Fixed bug with navigation in with 'View in Widget' Widget",
         "de": "Fehler bei der Navigation mit dem Widget 'View in Widget' behoben",
