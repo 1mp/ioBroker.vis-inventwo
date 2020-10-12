@@ -16,7 +16,7 @@
 						iUniversalWidgetType[Switch]/nselect,Switch,State,Navigation,Background/updateUniversalDataFields();
 						nav_view;
 						oid/id;
-						iValueType[boolean]/nselect,boolean,value;
+						iValueType[boolean]/select,boolean,value;
 						iValueTypeInfo/custom,vis-inventwo.infoText,valueType;
 						iValueFalse/text;
 						iValueTrue/text;
@@ -63,13 +63,10 @@
 						 iImgSpaceLeft[0]/slider,0,50,1;
 						 iImgSpaceRight[0]/slider,0,50,1;
 						 iImgRotation[0]/slider,0,180,1;
+						 iInvertImageCol/checkbox;
 						 iFlipImage/checkbox;
 						 iImgBlinkFalse[0]/slider,0,2000,100;
 						 iImgBlinkTrue[0]/slider,0,2000,100;
-						 iImgColorFalse[]/color/changeWidgetIconColor();
-						 iImgColorTrue[]/color/changeWidgetIconColor();
-						 iImgColorFalseFilter[]/text;
-						 iImgColorTrueFilter[]/text;
 
 						 iText-ShadowSettings/custom,vis-inventwo.infoText,emptyText;
 						 iShadowXOffset[2]/slider,0,20,1;
@@ -99,12 +96,10 @@
 
 	<div class="vis-widget <%== this.data.attr('class') %> waves-effect waves-light" style="width:110px; height:110px; overflow:visible; cursor:pointer;z-index:1" id="<%= this.data.attr('wid') %>">
 		<%= (el) -> vis.binds['vis-inventwo'].universalButton(el, this.data,'universal') %>
-		<%= (el) -> vis.binds['vis-inventwo'].hideImgFilterFields(el) %>
 	</div>
 
 
 </script>
-
 <script id="i-vis-multi"
 		type="text/ejs"
 		class="vis-tpl"
@@ -121,22 +116,22 @@
 						value/text;
 						iTextFalse/html;
 						iImageFalse/image;
+						iImgBlinkFalse[0]/slider,0,2000,100;
 						iStateResponseTime[0]/slider,0,2000,100;
 						iStateResetValueTime[0]/slider,0,2000,100;
 						iNavWait[100]/number;"
-		data-vis-attrs0="iUniversalValueCount[1]/number,1,20,1/updateUniversalDataFields();group.iUniversalValues/byindex;
+		data-vis-attrs0="iUniversalValueCount[1]/number,1,20,1;group.iUniversalValues/byindex/updateUniversalDataFields();
 						 iView(1-iUniversalValueCount)/views;
 						 oid(1-iUniversalValueCount)/id;
 						 iValue(1-iUniversalValueCount)/text;
 						 iTextTrue(1-iUniversalValueCount)/html;
 						 iImageTrue(1-iUniversalValueCount)/image;
+						 iInvertImageCol(1-iUniversalValueCount)/checkbox;
 						 iImgBlinkTrue(1-iUniversalValueCount)[0]/slider,0,2000,100;
 						 iButtonActiveM(1-iUniversalValueCount)[#455618]/color;
 						 iShadowColorActiveM(1-iUniversalValueCount)[#111111]/color;
 						 iShadowInnerColorActiveM(1-iUniversalValueCount)[#111111]/color;
-						 iBorderColorActiveM(1-iUniversalValueCount)[#ffffff]/color;
-						 iImgColorTrue(1-iUniversalValueCount)[]/color/changeWidgetIconColor();
-						 iImgColorTrueFilter(1-iUniversalValueCount)[]/text;"
+						 iBorderColorActiveM(1-iUniversalValueCount)[#ffffff]/color;"
 		data-vis-attrs1="group.i-css;
 						 iText-BackgroundSettings/custom,vis-inventwo.infoText,emptyText;
 						 iButtonCol[#333333]/color;
@@ -171,10 +166,9 @@
 						 iImgSpaceBottom[0]/slider,0,50,1;
 						 iImgSpaceLeft[0]/slider,0,50,1;
 						 iImgSpaceRight[0]/slider,0,50,1;
+						 iInvertImageCol/checkbox;
 						 iFlipImage/checkbox;
 						 iImgBlinkFalse[0]/slider,0,2000,100;
-						 iImgColorFalse[]/color/changeWidgetIconColor();
-						 iImgColorFalseFilter[]/color;
 
 						 iText-ShadowSettings/custom,vis-inventwo.infoText,emptyText;
 						 iShadowXOffset[2]/slider,0,20,1;
@@ -201,7 +195,6 @@
 
 	<div class="vis-widget <%== this.data.attr('class') %> waves-effect waves-light" style="width:110px; height:110px; overflow:visible; cursor:pointer;z-index:1" id="<%= this.data.attr('wid') %>">
 		<%= (el) -> vis.binds['vis-inventwo'].universalButton(el, this.data,'multi') %>
-		<%= (el) -> vis.binds['vis-inventwo'].hideImgFilterFields(el) %>
 	</div>
 
 </script>
@@ -357,13 +350,8 @@
 
 						 iText-ImageSettings/custom,vis-inventwo.infoText,emptyText;
 						 iImgRotation[0]/slider,0,180,1;
+						 iInvertImageCol/checkbox;
 						 iFlipImage/checkbox;
-						 iImgBlinkFalse[0]/slider,0,2000,100;
-						 iImgBlinkTrue[0]/slider,0,2000,100;
-						 iImgColorFalse[]/color/changeWidgetIconColor();
-						 iImgColorFalseFilter[]/color;
-						 iImgColorTrue[]/color/changeWidgetIconColor();
-						 iImgColorTrueFilter[]/color;
 
 						 iText-ShadowSettings/custom,vis-inventwo.infoText,emptyText;
 						 iShadowSpread[0]/slider,0,50,1;
@@ -389,63 +377,24 @@
 		<div class="vis-inventwo-class vis-widget-body <%== this.data.attr('class') %>">
 
 			<%
-				let d = this.data;
 
-				function create(){
+				let dataNew = Object.assign({},this.data);
+				if(vis.editMode){
+					dataNew = vis.binds['vis-inventwo'].getDatapointsValues(dataNew);
+				}
 
+				let cssData = {};
 
-					let dataNew = Object.assign({},d);
-					if(vis.editMode){
-						dataNew = vis.binds['vis-inventwo'].getDatapointsValues(dataNew);
-					}
-
-					let cssData = {};
-
-					cssData.flip = 1;
-            		if(dataNew.iFlipImage){
-            			cssData.flip = -1;
-            		}
-
-            		let imgBlink;
-            		let imgColorFilter = "";
-            		let img = "";
-            		let shadow = "";
-
-            		let val = vis.binds["vis-inventwo"].convertValue(dataNew.iValue);
-
-
-
-            		if(dataNew.oid != undefined && vis.states.attr(dataNew.oid + '.val') == val) {
-            			imgBlink = dataNew.iImgBlinkTrue / 1000;
-            			imgColorFilter = dataNew.iImgColorTrueFilter;
-            			img = dataNew.iImageTrue;
-            			shadow = "box-shadow: 0px 0px " + dataNew.iShadowBlur + "px " + dataNew.iShadowSpread + "px " + dataNew.iShadowColorActive;
-            		}
-            		else{
-            			imgBlink = dataNew.iImgBlinkFalse / 1000;
-            			imgColorFilter = dataNew.iImgColorFalseFilter;
-            			img = dataNew.iImageFalse;
-            			shadow = "box-shadow: 0px 0px " + dataNew.iShadowBlur + "px " + dataNew.iShadowSpread + "px " + dataNew.iShadowColor;
-            		}
-
-            		return `
-
-            			<div style="width: ` + dataNew.iShadowSpreadInner + `px; height: ` + dataNew.iShadowSpreadInner+ `px; position: absolute; background:` + dataNew.iShadowColor+ `; border-radius: 100%; ` + shadow + `"></div>
-            		    <img src='` + img + `'
-            		    	 width="100%;height:100%;"
-            		    	 style="
-            		    	 		transform: scaleX(` + cssData.flip + `) rotateZ(` + dataNew.iImgRotation + `deg);
-            		    	 		border-radius: ` + dataNew.iCornerRadiusUL + `px ` + data.iCornerRadiusUR+ `px ` + data.iCornerRadiusLR+ `px ` + data.iCornerRadiusLL+ `px;
-            		    	 		animation:blink ` + imgBlink + `s infinite; ` + imgColorFilter + `">
-
-            		`;
-
+				cssData.flip = 1;
+            	if(dataNew.iFlipImage){
+            		cssData.flip = -1;
             	}
+
 			%>
 
             <div class="vis-inventwo-button-new" style="width:100%; height:100%;">
 
-            	<div style="width:100%; height:100%;">
+            	<div style="opacity: <%= dataNew.iOpacityCtn %>;width:100%; height:100%;">
 
             		<div class="vis-inventwo-button-imageContainer"
             			 style="align-self: center;
@@ -454,13 +403,28 @@
     							align-items: center;
     							width:100%; height:100%;">
 
-            			<%== create() %>
+            			<div style="width: <%= dataNew.iShadowSpreadInner %>px; height: <%= dataNew.iShadowSpreadInner%>px; position: absolute; background:<%= dataNew.iShadowColor%>; border-radius: 100%;
+            					<% if(dataNew.oid != undefined && vis.states.attr(dataNew.oid + '.val') == dataNew.iValue) { %>
+            						box-shadow: 0px 0px <%= dataNew.iShadowBlur %>px <%= dataNew.iShadowSpread %>px <%= dataNew.iShadowColorActive%>;
+            					<% } else { %>
+            						box-shadow: 0px 0px <%= dataNew.iShadowBlur %>px <%= dataNew.iShadowSpread %>px <%= dataNew.iShadowColor%>;
+            					<% } %>
+            						"></div>
+            		    <img
+            		    	<% if(dataNew.oid != undefined && vis.states.attr(dataNew.oid + '.val') == dataNew.iValue) { %>
+            		    		src='<%= dataNew.iImageTrue %>'
+            		    	<% } else { %>
+            		    		src='<%= dataNew.iImageFalse %>'
+            		    	<% } %>
+            		    	 width="100%;height:100%;"
+            		    	 style="filter: invert(<%= Number(dataNew.iInvertImageCol) %>);
+            		    	 		transform: scaleX(<%= cssData.flip %>) rotateZ(<%= dataNew.iImgRotation %>deg);
+            		    	 		border-radius: <%= dataNew.iCornerRadiusUL %>px <%= data.iCornerRadiusUR%>px <%= data.iCornerRadiusLR%>px <%= data.iCornerRadiusLL%>px">
 
             		</div>
             	</div>
             </div>
 		</div>
-		<%= (el) -> vis.binds['vis-inventwo'].hideImgFilterFields(el) %>
 	</div>
 </script>
 
@@ -479,36 +443,19 @@
 						 iColName(1-iColCount)/text;
 						 iColAttr(1-iColCount)/text;
 						 iColWidth(1-iColCount)/text;
-						 iTblCellFormat(1-iColCount)[normal]/nselect,normal,datetime,image/updateJsonTableFields();
+						 iTblCellFormat(1-iColCount)/nselect,normal,datetime,image;
 						 iTblCellDatetimeFormat(1-iColCount)/text;
 						 iTblCellDatetimeFormatInfo(1-iColCount)/custom,vis-inventwo.infoText,tblDateInfo;
-						 iTblCellImageSize(1-iColCount)[200]/slider,0,1000,1;
-						 iTblTextAlign(1-iColCount)[left]/nselect,left,center,right;"
+						 iTblCellImageSize(1-iColCount)[200]/slider,0,1000,1;"
 		data-vis-attrs1="group.i-css;
-
-						 iText-BackgroundSettings/custom,vis-inventwo.infoText,emptyText;
 						 iOpacityAll[1]/slider,0,1,0.1;
 						 iTblRowEvenColor[#333333]/color;
 						 iTblRowUnevenColor[#455618]/color;
 						 iTblHeaderColor[#333333]/color;
-
-						 iText-ContentSettings/custom,vis-inventwo.infoText,emptyText;
-						 iRowSpacing[10]/slider,0,50,0.1;
-
-						 iText-TextSettings/custom,vis-inventwo.infoText,emptyText;
 						 iTblRowEvenTextColor[#ffffff]/color;
 						 iTblRowUnevenTextColor[#ffffff]/color;
 						 iTblHeaderTextColor[#ffffff]/color;
-
-						 iText-BorderSettings/custom,vis-inventwo.infoText,emptyText;
-						 iBorderSize[0]/slider,0,20,1;
-						 iBorderStyleLeft[none]/nselect,dotted,dashed,solid,double,groove,ridge,inset,outset,none;
-						 iBorderStyleRight[none]/nselect,dotted,dashed,solid,double,groove,ridge,inset,outset,none;
-						 iBorderStyleUp[none]/nselect,dotted,dashed,solid,double,groove,ridge,inset,outset,none;
-						 iBorderStyleDown[none]/nselect,dotted,dashed,solid,double,groove,ridge,inset,outset,none;
-						 iBorderRemoveDouble/checkbox;
-						 iBorderColor[#ffffff]/color;"
-
+						 iRowSpacing[10]/slider,0,50,0.1;"
 		data-vis-set="vis-inventwo"
 		data-vis-type="table"
 		data-vis-name="JSON Table">
@@ -549,10 +496,7 @@
 						 iText-ImgSettings(1-iRadiobtnsCount)/custom,vis-inventwo.infoText,emptyText;
 						 iImageFalse(1-iRadiobtnsCount)/image;
 						 iImageTrue(1-iRadiobtnsCount)/image;
-						 iImgColorFalse(1-iRadiobtnsCount)[]/color/changeWidgetIconColor();
-						 iImgColorFalseFilter(1-iRadiobtnsCount)[]/color;
-						 iImgColorTrue(1-iRadiobtnsCount)[]/color/changeWidgetIconColor();
-						 iImgColorTrueFilter(1-iRadiobtnsCount)[]/color;"
+						 iInvertImageCol(1-iRadiobtnsCount)/checkbox;"
 		data-vis-attrs1="group.i-css;
 						 iText-BackgroundSettings/custom,vis-inventwo.infoText,emptyText;
 						 iButtonCol[#333333]/color;
@@ -588,6 +532,7 @@
 						 iImgSpaceBottom[0]/slider,0,50,1;
 						 iImgSpaceLeft[0]/slider,0,50,1;
 						 iImgSpaceRight[0]/slider,0,50,1;
+						 iInvertImageCol/checkbox;
 						 iFlipImage/checkbox;
 
 						 iText-ShadowSettings/custom,vis-inventwo.infoText,emptyText;
@@ -636,6 +581,7 @@
 				cssData.align = "row";
 				cssData.marginDir = "right";
 			}
+
 		%>
 
 		<div class="vis-inventwo-class vis-widget-body vis-inventwo-radiobtnlist-body <%== this.data.attr('class') %>" style="flex-direction: <%= cssData.align %>">
@@ -704,10 +650,7 @@
 
 				let backCol = "";
 				let imgColorInvert = 0;
-				let imgColorFilter = "";
-				let value = vis.binds["vis-inventwo"].convertValue(dataNew['iValue' + val]);
-
-				if(vis.states.attr(this.data.oid + '.val') == value){
+				if(vis.states.attr(this.data.oid + '.val') == dataNew['iValue' + val]){
 
 					if(dataNew['iButtonBackActiveM' + val] != undefined){
 						backCol = dataNew['iButtonBackActiveM' + val];
@@ -717,7 +660,6 @@
 					}
 
 					imgColorInvert = dataNew['iInvertImageCol' + val];
-					imgColorFilter = dataNew["iImgColorTrueFilter" + val];
 				}
 				else{
 					if(dataNew['iButtonBackM' + val] != undefined){
@@ -727,7 +669,6 @@
 						backCol = dataNew.iButtonCol;
 					}
 					imgColorInvert = dataNew.iInvertImageCol;
-					imgColorFilter = dataNew["iImgColorFalseFilter" + val];
 				}
 
 			%>
@@ -761,11 +702,11 @@
             			 		margin: <%= dataNew.iImgSpaceTop + 'px ' + dataNew.iImgSpaceRight + 'px ' + dataNew.iImgSpaceBottom + 'px ' + dataNew.iImgSpaceLeft + 'px' %>;">
             			<% if(vis.states.attr(this.data.oid + '.val') == dataNew['iValue' + val]) { %>
             		    	<img src='<%= dataNew['iImageTrue' + val] %>' width="<%= dataNew.iIconSize %>"
-            		    		 style="<%= imgColorFilter %>
+            		    		 style="filter: invert(<%= Number(dataNew.iInvertImageCol) %>);
             		    		 		transform: scaleX(<%= flip %>) rotateZ(<%= dataNew.iImgRotation %>deg);" >
             		    <% } else if(dataNew['iImageFalse' + val] != ""){ %>
             		    	<img src='<%= dataNew['iImageFalse' + val] %>' width="<%= dataNew.iIconSize %>"
-            		    	 style="<%= imgColorFilter %>
+            		    	 style="filter: invert(<%= Number(dataNew.iInvertImageCol) %>);
             		    	 		transform: scaleX(<%= flip %>) rotateZ(<%= dataNew.iImgRotation %>deg);" >
             		    <% } %>
             		</div>
@@ -793,10 +734,7 @@
 
 		</div>
 
-		<%= (el) -> vis.binds['vis-inventwo'].hideImgFilterFields(el) %>
-
 	</div>
-
 </script>
 
 <script id="i-vis-valuelist"
@@ -880,6 +818,7 @@
 	</div>
 
 </script>
+
 
 
 <!-- WERDEN ENTFERNT -->
