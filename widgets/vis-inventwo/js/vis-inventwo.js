@@ -1768,6 +1768,7 @@ vis.binds["vis-inventwo"] = {
 	},
 
 	/*
+
 		Generierung der Filter um ein Icon zu färben. Der Code zur stammt NICHT von uns.
 		Ich hab ihn nur etwas abgeändert
 
@@ -1775,6 +1776,7 @@ vis.binds["vis-inventwo"] = {
 		https://stackoverflow.com/questions/42966641/how-to-transform-black-into-any-given-color-using-only-css-filters/43960991#43960991
 
 		Code in Codepen -> https://codepen.io/sosuke/pen/Pjoqqp
+
 	 */
 	colorFilterGenerator: function(hex){
 
