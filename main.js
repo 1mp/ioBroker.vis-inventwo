@@ -694,8 +694,8 @@ class visInventwo extends utils.Adapter {
             },
             "Color": {
                 type: "channel",
-                name: "Configuration",
-                role: "config",
+                name: "HEX Codes",
+                role: "color",
                 icon: "lib/config_c.png",
                 channels: {},
                 dps: [
