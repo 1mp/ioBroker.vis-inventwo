@@ -692,9 +692,10 @@ class visInventwo extends utils.Adapter {
                 },
                 dps: []
             },
+
             "Color": {
                 type: "channel",
-                name: "HEX Codes",
+                name: "inventwo HEX Codes",
                 role: "color",
                 icon: "lib/config_c.png",
                 channels: {},
@@ -704,6 +705,55 @@ class visInventwo extends utils.Adapter {
                         name: "HEX Blue",
                         role: "color",
                         def: "#3398DB",
+                        unit: ""
+                    },
+                    {
+                        dp: "Brown",
+                        name: "HEX Brown",
+                        role: "color",
+                        def: "#A5510A",
+                        unit: ""
+                    },
+                    {
+                        dp: "Yellow",
+                        name: "HEX Yellow",
+                        role: "color",
+                        def: "#F1C40F",
+                        unit: ""
+                    },
+                    {
+                        dp: "Green",
+                        name: "HEX Green",
+                        role: "color",
+                        def: "#2DCC71",
+                        unit: ""
+                    },
+                    {
+                        dp: "Orange",
+                        name: "HEX Orange",
+                        role: "color",
+                        def: "#E77E21",
+                        unit: ""
+                    },
+                    {
+                        dp: "Red",
+                        name: "HEX Red",
+                        role: "color",
+                        def: "#E74C3C",
+                        unit: ""
+                    },
+                    {
+                        dp: "White",
+                        name: "HEX White",
+                        role: "color",
+                        def: "#FFFFFF",
+                        unit: ""
+                    },
+                    {
+                        dp: "Dark-Grey",
+                        name: "HEX Dark-Grey",
+                        role: "color",
+                        def: "#333333",
                         unit: ""
                     }
                 ]
