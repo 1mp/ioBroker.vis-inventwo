@@ -691,7 +691,23 @@ class visInventwo extends utils.Adapter {
 
                 },
                 dps: []
-            }
+            },
+            "Color": {
+                type: "channel",
+                name: "Configuration",
+                role: "config",
+                icon: "lib/config_c.png",
+                channels: {},
+                dps: [
+                    {
+                        dp: "Blue",
+                        name: "HEX Blue",
+                        role: "color",
+                        def: "#3398DB",
+                        unit: ""
+                    }
+                ]
+            },
         };
         // End
 
