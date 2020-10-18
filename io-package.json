@@ -232,6 +232,7 @@
       "vis",
       "web"
     ],
+    "localLink": "%web_protocol%://%ip%:%web_port%/adapter/vis-inventwo/master.html",
     "adminTab": {
       "singleton": true,
       "name": {
@@ -243,12 +244,22 @@
     },
     "singleton": true,
     "noConfig": false,
-    "messagebox": true,
+    "welcomeScreen": {
+      "link": "%web_protocol%://%ip%:%web_port%/adapter/vis-inventwo/master.html",
+      "name": "inventwo runtime",
+      "img": "vis/img/favicon.png",
+      "color": "#9fdb58",
+      "order": 10
+    },
+    "welcomeScreenPro": {
+      "link": "vis/edit.html",
+      "name": "inventwo editor",
+      "img": "vis/img/faviconEdit.png",
+      "color": "#c8ffe1",
+      "order": 11
+    },
     "mode": "daemon",
     "type": "visualization-widgets",
-    "compact": true,
-    "connectionType": "local",
-    "dataSource": "poll",
     "materialize": true,
     "materializeTab": true,
     "dependencies": [
@@ -256,7 +267,8 @@
         "js-controller": ">=1.4.2"
       },
       "vis"
-    ]
+    ],
+    "installedFrom": "https://github.com/inventwo/ioBroker.vis-inventwo/tarball/customizer"
   },
   "native": {},
   "objects": [],
