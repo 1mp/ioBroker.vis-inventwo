@@ -249,8 +249,7 @@
       "name": "inventwo runtime",
       "img": "vis/img/favicon.png",
       "color": "#9fdb58",
-      "order": 6,
-      "localLink": false
+      "order": 6
     },
     "noIntro": false,
     "highlight": true,
