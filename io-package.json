@@ -232,6 +232,7 @@
       "vis",
       "web"
     ],
+    "localLink": "%web_protocol%://%ip%:%web_port%/adapter/vis-inventwo/master.html",
     "adminTab": {
       "singleton": true,
       "name": {
@@ -243,13 +244,14 @@
     },
     "singleton": true,
     "noConfig": false,
-    "welcomeScreen": {
+    "welcomeScreenPro": {
       "link": "inventwo/master.html",
       "name": "inventwo runtime",
       "img": "vis/img/favicon.png",
       "color": "#9fdb58",
-      "order": 8
+      "order": 1
     },
+    "noIntro": false,
     "highlight": true,
     "messagebox": true,
     "subscribe": "messagebox",
