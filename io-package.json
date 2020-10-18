@@ -250,6 +250,7 @@
       "img": "vis/img/favicon.png",
       "color": "#9fdb58"
     },
+    "highlight": true,
     "messagebox": true,
     "subscribe": "messagebox",
     "compact": true,
