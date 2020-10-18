@@ -232,7 +232,6 @@
       "vis",
       "web"
     ],
-    "localLink": "%web_protocol%://%ip%:%web_port%/adapter/vis-inventwo/master.html",
     "adminTab": {
       "singleton": true,
       "name": {
