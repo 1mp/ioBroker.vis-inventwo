@@ -248,15 +248,7 @@
       "link": "inventwo/master.html",
       "name": "inventwo runtime",
       "img": "vis/img/favicon.png",
-      "color": "#9fdb58",
-      "order": 10
-    },
-    "welcomeScreenPro": {
-      "link": "inventwo/master.html",
-      "name": "inventwo editor",
-      "img": "vis/img/faviconEdit.png",
-      "color": "#c8ffe1",
-      "order": 11
+      "color": "#9fdb58"
     },
     "messagebox": true,
     "subscribe": "messagebox",
