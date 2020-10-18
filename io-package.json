@@ -247,7 +247,8 @@
       "link": "inventwo/master.html",
       "name": "inventwo runtime",
       "img": "vis/img/favicon.png",
-      "color": "#9fdb58"
+      "color": "#9fdb58",
+      "order": 8
     },
     "highlight": true,
     "messagebox": true,
