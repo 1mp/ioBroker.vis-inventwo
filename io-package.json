@@ -258,6 +258,9 @@
       "color": "#c8ffe1",
       "order": 11
     },
+    "messagebox": true,
+    "subscribe": "messagebox",
+    "compact": true,
     "mode": "daemon",
     "type": "visualization-widgets",
     "materialize": true,
