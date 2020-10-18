@@ -244,12 +244,12 @@
     },
     "singleton": true,
     "noConfig": false,
-    "welcomeScreenPro": {
+    "welcomeScreen": {
       "link": "inventwo/master.html",
       "name": "inventwo runtime",
       "img": "vis/img/favicon.png",
       "color": "#9fdb58",
-      "order": 1
+      "order": 6
     },
     "noIntro": false,
     "highlight": true,
