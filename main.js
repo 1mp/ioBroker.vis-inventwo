@@ -13,504 +13,164 @@ const utils = require("@iobroker/adapter-core");
 
 class visInventwo extends utils.Adapter {
 
-
-	/**
-	 * @param {Partial<ioBroker.AdapterOptions>} [options={}]
-	 */
+    /**
+     * @param {Partial<ioBroker.AdapterOptions>} [options={}]
+     */
     constructor(options) {
         super({
             ...options,
             name: "vis-inventwo",
         });
         this.on("ready", this.onReady.bind(this));
-        // this.on("objectChange", this.onObjectChange.bind(this));
-        // this.on("stateChange", this.onStateChange.bind(this));
+        //this.on("objectChange", this.onObjectChange.bind(this));
+        //this.on("stateChange", this.onStateChange.bind(this));
         // this.on("message", this.onMessage.bind(this));
         this.on("unload", this.onUnload.bind(this));
-
     }
 
-	/**
-	 * Is called when databases are connected and adapter received configuration.
-	 */
+    /**
+     * Is called when databases are connected and adapter received configuration.
+     */
     async onReady() {
         // Initialize your adapter here
 
-        let adapter = this;
+//      this.log.info("config Stripes: " + this.config.Stripes);
+//      this.log.info("config Background: " + this.config.Background);
+//      this.log.info("config Radius: " + this.config.Radius);
+//      this.log.info("config Info: " + this.config.Info);
 
-        // Begin: states and channels to create
-        let states = {
-            "Config": {
-                type: "channel",
-                name: "Configuration",
-                icon: "lib/job.png",
-                channels: {},
-                dps: [
-                    {
-                        dp: "Theme-Active",
-                        name: "Active Theme",
-                        states: "inventwo:inventwo;Dark:Dark;Light:Light",
-                        role: "inventwo.themes",
-                        def: "Dark",
-                        unit: ""
-                    }
-                ]
+        /*
+		For every state in the system there has to be also an object of type state
+		Here a simple template for a boolean variable named "testVariable"
+		Because every adapter instance uses its own unique namespace variable names can't collide with other adapters variables
+		*/
+
+        await this.setObjectAsync("CSS.Button", {
+            type: "state",
+            common: {
+                name: "Button-Color",
+                type: "string",
+                role: "inventwo.color",
+                read: true,
+                write: true,
             },
-
-            "CSS": {
-                type: "channel",
-                icon: "lib/css.png",
-                name: "CSS",
-                channels: {
-                    "Dark-Theme": {
-                        type: "channel",
-                        icon: "lib/night.png",
-                        name: "Dark-Theme",
-                        dps: [
-                            // WIDGET DARK
-                            {
-                                dp: "01_Widget.Color",
-                                name: "Widget-Color",
-                                role: "inventwo.dark.color",
-                                def: "#333333",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Active-Color",
-                                role: "inventwo.dark.color",
-                                name: "Widget-Active-Color",
-                                def: "#455618",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Radius",
-                                name: "Widget-Radius",
-                                role: "inventwo.dark.radius",
-                                def: "12px 0px 12px 0px",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Shadow-Blur",
-                                name: "Widget-Shadow-Blur",
-                                role: "inventwo.dark.blur",
-                                def: "2",
-                                unit: "px"
-                            },
-                            {
-                                dp: "01_Widget.Shadow-X",
-                                name: "Widget-Shadow-X",
-                                role: "inventwo.dark.x",
-                                def: "2",
-                                unit: "px"
-                            },
-                            {
-                                dp: "01_Widget.Shadow-Y",
-                                name: "Widget-Shadow-Y",
-                                role: "inventwo.dark.y",
-                                def: "2",
-                                unit: "px"
-                            },
-                            {
-                                dp: "01_Widget.Shadow-Size",
-                                name: "Widget-Shadow-Size",
-                                role: "inventwo.dark.size",
-                                def: "1",
-                                unit: "px"
-                            },
-                            {
-                                dp: "01_Widget.Shadow-Color",
-                                name: "Widget-Shadow-Color",
-                                role: "inventwo.dark.color",
-                                def: "#111111",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Shadow-Active-Color",
-                                name: "Widget-Shadow-Active-Color",
-                                role: "inventwo.dark.color",
-                                def: "#111111",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Border-Size",
-                                name: "Widget-Border-Size",
-                                role: "inventwo.dark.size",
-                                def: "0",
-                                unit: "px"
-                            },
-                            {
-                                dp: "01_Widget.Border-Style",
-                                name: "Widget-Border-Style",
-                                role: "inventwo.dark.style",
-                                states: "dotted:dotted;dashed:dashed;solid:solid;double:double;groove:groove;ridge:ridge;insert:insert;outset:outset;none:none",
-                                def: "none:none",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Border-Color",
-                                name: "Widget-Border-Color",
-                                role: "inventwo.dark.color",
-                                def: "#FFFFFF",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Border-Active-Color",
-                                name: "Widget-Border-Active-Color",
-                                role: "inventwo.dark.color",
-                                def: "#FFFFFF",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Opacity",
-                                name: "Widget-Opacity",
-                                role: "inventwo.dark.opacity",
-                                def: "1",
-                                unit: ""
-                            },
-                            // CONTENT DARK
-                            {
-                                dp: "02_Content.Text-Color",
-                                name: "Content-Text-Color",
-                                role: "inventwo.dark.color",
-                                def: "#FFFFFF",
-                                unit: ""
-                            },
-                            {
-                                dp: "02_Content.Text-Size",
-                                name: "Content-Text-Size",
-                                role: "inventwo.dark.size",
-                                def: "12",
-                                unit: "px"
-                            },
-                            {
-                                dp: "02_Content.Shadow-Blur",
-                                name: "Content-Shadow-Blur",
-                                role: "inventwo.dark.blur",
-                                def: "0",
-                                unit: "px"
-                            },
-                            {
-                                dp: "02_Content.Shadow-X",
-                                name: "Content-Shadow-X",
-                                role: "inventwo.dark.x",
-                                def: "0",
-                                unit: "px"
-                            },
-                            {
-                                dp: "02_Content.Shadow-Y",
-                                name: "Content-Shadow-Y",
-                                role: "inventwo.dark.y",
-                                def: "0",
-                                unit: "px"
-                            },
-                            {
-                                dp: "02_Content.Shadow-Size",
-                                name: "Content-Shadow-Size",
-                                role: "inventwo.dark.size",
-                                def: "0",
-                                unit: "px"
-                            },
-                            {
-                                dp: "02_Content.Shadow-Color",
-                                name: "Content-Shadow-Color",
-                                role: "inventwo.dark.size",
-                                def: "#111111",
-                                unit: ""
-                            },
-                            {
-                                dp: "02_Content.Shadow-Active-Color",
-                                name: "Content-Shadow-Active-Color",
-                                role: "inventwo.dark.size",
-                                def: "#111111",
-                                unit: ""
-                            },
-                            {
-                                dp: "02_Content.Opacity",
-                                name: "Content-Opacity",
-                                role: "inventwo.dark.opacity",
-                                def: "1",
-                                unit: ""
-                            },
-                            // BACKGROUND DARK
-                            {
-                                dp: "03_Background.URL",
-                                name: "Background-URL",
-                                role: "inventwo.dark.url",
-                                def: "localhost",
-                                unit: ""
-                            },
-                            {
-                                dp: "03_Background.Opacity",
-                                name: "Background-Opacity",
-                                role: "inventwo.dark.opacity",
-                                def: "1",
-                                unit: ""
-                            }
-                        ]
-                    },
-                    "Light-Theme": {
-                        type: "channel",
-                        icon: "lib/day.png",
-                        name: "Light-Theme",
-                        dps: [
-                            // WIDGET LIGHT
-                            {
-                                dp: "01_Widget.Color",
-                                name: "Widget-Color",
-                                role: "inventwo.light.color",
-                                def: "#333333",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Active-Color",
-                                role: "inventwo.light.color",
-                                name: "Widget-Active-Color",
-                                def: "#455618",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Radius",
-                                name: "Widget-Radius",
-                                role: "inventwo.light.radius",
-                                def: "12px 0px 12px 0px",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Shadow-Blur",
-                                name: "Widget-Shadow-Blur",
-                                role: "inventwo.light.blur",
-                                def: "2",
-                                unit: "px"
-                            },
-                            {
-                                dp: "01_Widget.Shadow-X",
-                                name: "Widget-Shadow-X",
-                                role: "inventwo.light.x",
-                                def: "2",
-                                unit: "px"
-                            },
-                            {
-                                dp: "01_Widget.Shadow-Y",
-                                name: "Widget-Shadow-Y",
-                                role: "inventwo.light.y",
-                                def: "2",
-                                unit: "px"
-                            },
-                            {
-                                dp: "01_Widget.Shadow-Size",
-                                name: "Widget-Shadow-Size",
-                                role: "inventwo.light.size",
-                                def: "1",
-                                unit: "px"
-                            },
-                            {
-                                dp: "01_Widget.Shadow-Color",
-                                name: "Widget-Shadow-Color",
-                                role: "inventwo.light.color",
-                                def: "#111111",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Shadow-Active-Color",
-                                name: "Widget-Shadow-Active-Color",
-                                role: "inventwo.light.color",
-                                def: "#111111",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Border-Size",
-                                name: "Widget-Border-Size",
-                                role: "inventwo.light.size",
-                                def: "0",
-                                unit: "px"
-                            },
-                            {
-                                dp: "01_Widget.Border-Style",
-                                name: "Widget-Border-Style",
-                                role: "inventwo.light.style",
-                                states: "dotted:dotted;dashed:dashed;solid:solid;double:double;groove:groove;ridge:ridge;insert:insert;outset:outset;none:none",
-                                def: "none:none",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Border-Color",
-                                name: "Widget-Border-Color",
-                                role: "inventwo.light.color",
-                                def: "#FFFFFF",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Border-Active-Color",
-                                name: "Widget-Border-Active-Color",
-                                role: "inventwo.light.color",
-                                def: "#FFFFFF",
-                                unit: ""
-                            },
-                            {
-                                dp: "01_Widget.Opacity",
-                                name: "Widget-Opacity",
-                                role: "inventwo.light.opacity",
-                                def: "1",
-                                unit: ""
-                            },
-                            // CONTENT LIGHT
-                            {
-                                dp: "02_Content.Text-Color",
-                                name: "Content-Text-Color",
-                                role: "inventwo.light.color",
-                                def: "#FFFFFF",
-                                unit: ""
-                            },
-                            {
-                                dp: "02_Content.Text-Size",
-                                name: "Content-Text-Size",
-                                role: "inventwo.light.size",
-                                def: "12",
-                                unit: "px"
-                            },
-                            {
-                                dp: "02_Content.Shadow-Blur",
-                                name: "Content-Shadow-Blur",
-                                role: "inventwo.light.blur",
-                                def: "0",
-                                unit: "px"
-                            },
-                            {
-                                dp: "02_Content.Shadow-X",
-                                name: "Content-Shadow-X",
-                                role: "inventwo.light.x",
-                                def: "0",
-                                unit: "px"
-                            },
-                            {
-                                dp: "02_Content.Shadow-Y",
-                                name: "Content-Shadow-Y",
-                                role: "inventwo.light.y",
-                                def: "0",
-                                unit: "px"
-                            },
-                            {
-                                dp: "02_Content.Shadow-Size",
-                                name: "Content-Shadow-Size",
-                                role: "inventwo.light.size",
-                                def: "0",
-                                unit: "px"
-                            },
-                            {
-                                dp: "02_Content.Shadow-Color",
-                                name: "Content-Shadow-Color",
-                                role: "inventwo.light.size",
-                                def: "#111111",
-                                unit: ""
-                            },
-                            {
-                                dp: "02_Content.Shadow-Active-Color",
-                                name: "Content-Shadow-Active-Color",
-                                role: "inventwo.light.size",
-                                def: "#111111",
-                                unit: ""
-                            },
-                            {
-                                dp: "02_Content.Opacity",
-                                name: "Content-Opacity",
-                                role: "inventwo.light.opacity",
-                                def: "1",
-                                unit: ""
-                            },
-                            // BACKGROUND DARK
-                            {
-                                dp: "03_Background.URL",
-                                name: "Background-URL",
-                                role: "inventwo.light.url",
-                                def: "localhost",
-                                unit: ""
-                            },
-                            {
-                                dp: "03_Background.Opacity",
-                                name: "Background-Opacity",
-                                role: "inventwo.light.opacity",
-                                def: "1",
-                                unit: ""
-                            }
-                        ]
-                    }
-
-                },
-                dps: []
-            }
-        };
-        // End
-
-        this.inventwoDeleteStates();
-        setTimeout(function () {
-            adapter.createStates(states, "");
-        }, 2000);
-
-    }
-
-    // Function to create states and channels
-    async createStates(data, path) {
-        for (const [key, value] of Object.entries(data)) {
-
-            if (value.type == "channel") {
-                let p = "";
-                if (path != "")
-                    p = path + '.' + key;
-                else
-                    p = key;
-
-                this.setObjectNotExistsAsync(p, {
-                    type: value.type,
-                    common: {
-                        name: value.name,
-                        icon: value.icon
-                    },
-                    native: {},
-                });
-
-                if (value.dps != undefined)
-                    this.createStates(value.dps, p);
-
-                if (value.channels != undefined)
-                    this.createStates(value.channels, p);
-            }
-            else {
-
-                this.setObjectNotExistsAsync(path + "." + value.dp, {
-                    type: "state",
-                    common: {
-                        name: value.name,
-                        type: "string",
-                        states: value.states,
-                        role: value.role,
-                        read: true,
-                        write: true,
-                        def: value.def,
-                        unit: value.unit
-                    },
-                    native: {},
-                });
-            }
-        }
-    }
-
-    // Function to delete states and channels
-    async inventwoDeleteStates() {
-        let adapter = this;
-        this.getAdapterObjects(function (d) {
-            for (const [key, value] of Object.entries(d)) {
-                if (key.startsWith("vis-inventwo." + adapter.instance + ".CSS.Dark-Theme") ||
-                    key.startsWith("vis-inventwo." + adapter.instance + ".CSS.Light-Theme")) {
-                    adapter.delObjectAsync(key);
-                }
-            }
+            native: {},
         });
+        await this.setObjectAsync("CSS.Active", {
+            type: "state",
+            common: {
+                name: "Button-Active-Color",
+                type: "string",
+                role: "inventwo.color",
+                read: true,
+                write: true,
+            },
+            native: {},
+        });
+        await this.setObjectAsync("CSS.Text", {
+            type: "state",
+            common: {
+                name: "Text-Color",
+                type: "string",
+                role: "inventwo.color",
+                read: true,
+                write: true,
+            },
+            native: {},
+        });
+        /*
+			  await this.setObjectAsync("CSS.Stripes", {
+				  type: "state",
+				  common: {
+					  name: "Tripes-Color",
+					  type: "string",
+					  role: "inventwo.color",
+					  read: true,
+					  write: true,
+				  },
+				  native: {},
+			  });
+			  await this.setObjectAsync("CSS.Background", {
+				  type: "state",
+				  common: {
+					  name: "Background-Color",
+					  type: "string",
+					  role: "inventwo.color",
+					  read: true,
+					  write: true,
+				  },
+				  native: {},
+			  });
+			  await this.setObjectAsync("CSS.Radius", {
+				  type: "state",
+				  common: {
+					  name: "Button-Radius",
+					  type: "string",
+					  role: "inventwo.design",
+					  read: true,
+					  write: true,
+				  },
+				  native: {},
+			  });
+
+			  await this.setObjectAsync("Info", {
+				  type: "state",
+				  common: {
+					  name: "Adapter-Version",
+					  type: "string",
+					  role: "inventwo.info",
+					  read: true,
+					  write: false,
+				  },
+				  native: {},
+			  });
+	  */
+
+        // in this template all states changes inside the adapters namespace are subscribed
+        this.subscribeStates("CSS.Button");
+        this.subscribeStates("CSS.Active");
+        this.subscribeStates("CSS.Text");
+//      this.subscribeStates("CSS.Stripes");
+//      this.subscribeStates("CSS.Background");
+//      this.subscribeStates("CSS.Radius");
+//      this.subscribeStates("CSS.Info");
+
+        /*
+		setState examples
+		you will notice that each setState will cause the stateChange event to fire (because of above subscribeStates cmd)
+		*/
+        // the variable testVariable is set to true as command (ack=false)
+        //await this.setStateAsync("testVariable", true);
+
+        // same thing, but the value is flagged "ack"
+        // ack should be always set to true if the value is received from or acknowledged from the target system
+        if(await this.getStateAsync("CSS.Button") == null)
+            await this.setStateAsync("CSS.Button", { val: "#333333", ack: true });
+        if(await this.getStateAsync("CSS.Active") == null)
+            await this.setStateAsync("CSS.Active", { val: "#455618", ack: true });
+        if(await this.getStateAsync("CSS.Text") == null)
+            await this.setStateAsync("CSS.Text", { val: "#C7C7C7", ack: true });
+//      await this.setStateAsync("CSS.Stripes", { val: this.config.Stripes, ack: true });
+//      await this.setStateAsync("CSS.Background", { val: this.config.Background, ack: true });
+//      await this.setStateAsync("CSS.Radius", { val: this.config.Radius, ack: true });
+//      await this.setStateAsync("Info", { val: this.config.Version, ack: true });
+
+
+        // same thing, but the state is deleted after 30s (getState will return null afterwards)
+        //await this.setStateAsync("testVariable", { val: true, ack: true, expire: 30 });
+
+        // examples for the checkPassword/checkGroup functions
+        //let result = await this.checkPasswordAsync("admin", "ioBroker");
+        //this.log.info("check user admin pw ioBroker: " + result);
+
+        //result = await this.checkGroupAsync("admin", "admin");
+        //this.log.info("check group user admin group admin: " + result);
     }
 
-	/**
-	 * Is called when adapter shuts down - callback has to be called under any circumstances!
-	 * @param {() => void} callback
-	 */
+    /**
+     * Is called when adapter shuts down - callback has to be called under any circumstances!
+     * @param {() => void} callback
+     */
     onUnload(callback) {
         try {
             this.log.info("cleaned everything up...");
@@ -520,11 +180,11 @@ class visInventwo extends utils.Adapter {
         }
     }
 
-	/**
-	 * Is called if a subscribed object changes
-	 * @param {string} id
-	 * @param {ioBroker.Object | null | undefined} obj
-	 */
+    /**
+     * Is called if a subscribed object changes
+     * @param {string} id
+     * @param {ioBroker.Object | null | undefined} obj
+     */
     onObjectChange(id, obj) {
         if (obj) {
             // The object was changed
@@ -535,16 +195,15 @@ class visInventwo extends utils.Adapter {
         }
     }
 
-	/**
-	 * Is called if a subscribed state changes
-	 * @param {string} id
-	 * @param {ioBroker.State | null | undefined} state
-	 */
+    /**
+     * Is called if a subscribed state changes
+     * @param {string} id
+     * @param {ioBroker.State | null | undefined} state
+     */
     onStateChange(id, state) {
         if (state) {
             // The state was changed
             this.log.info(`state ${id} changed: ${state.val} (ack = ${state.ack})`);
-
         } else {
             // The state was deleted
             this.log.info(`state ${id} deleted`);
@@ -573,9 +232,9 @@ class visInventwo extends utils.Adapter {
 // @ts-ignore parent is a valid property on module
 if (module.parent) {
     // Export the constructor in compact mode
-	/**
-	 * @param {Partial<ioBroker.AdapterOptions>} [options={}]
-	 */
+    /**
+     * @param {Partial<ioBroker.AdapterOptions>} [options={}]
+     */
     module.exports = (options) => new visInventwo(options);
 } else {
     // otherwise start the instance directly
