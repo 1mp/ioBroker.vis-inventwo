@@ -135,9 +135,13 @@ if (vis.editMode) {
 			"en": "Flip",
 			"de": "Spiegeln"
 		},
-		"iInvertImageCol": {
-			"en": "Invert color",
-			"de": "Farbe invertieren"
+		"iImgColorFalse": {
+			"en": "Color false",
+			"de": "Farbe falsch"
+		},
+		"iImgColorTrue": {
+			"en": "Color true",
+			"de": "Farbe wahr"
 		},
 
 		//#endregion
@@ -306,6 +310,26 @@ if (vis.editMode) {
 		"iBorderColorActiveM": {
 			"en": "Border active",
 			"de": "Umrandung aktiv"
+		},
+		"iBorderStyleLeft": {
+			"en": "Style left",
+			"de": "Stil links"
+		},
+		"iBorderStyleRight": {
+			"en": "Style right",
+			"de": "Stil rechts"
+		},
+		"iBorderStyleUp": {
+			"en": "Style top",
+			"de": "Stil oben"
+		},
+		"iBorderStyleDown": {
+			"en": "Style bottom",
+			"de": "Stil unten"
+		},
+		"iBorderRemoveDouble": {
+			"en": "Collapse",
+			"de": "Zusammenfassen"
 		},
 		//#endregion
 
@@ -543,6 +567,14 @@ if (vis.editMode) {
 			"en": "Format help",
 			"de": "Format Hilfe"
 		},
+		"iTblTextAlign": {
+			"en": "Text align",
+			"de": "Textausrichtung"
+		},
+		"iTableRefreshRate": {
+			"en": "Refresh rate (seconds)",
+			"de": "Aktualisierung (Sekunden)"
+		},
 		//#endregion
 
 		//#region Universal & Multi Widget Settings
@@ -649,6 +681,37 @@ if (vis.editMode) {
 		},
 		//#endregion
 
+		//#region Toggle Switch Settings
+		"iSwitchSize": {
+			"en": "Size",
+			"de": "Größe"
+		},
+		"iSwitchColOn": {
+			"en": "Color on",
+			"de": "Farbe an"
+		},
+		"iSwitchColOnActive": {
+			"en": "Color on active",
+			"de": "Farbe an aktiv"
+		},
+		"iSwitchColOff": {
+			"en": "Color off",
+			"de": "Farbe aus"
+		},
+		"iSwitchColOffActive": {
+			"en": "Color off active",
+			"de": "Farbe aus aktiv"
+		},
+		"iSwitchColor": {
+			"en": "Toggle Switch color",
+			"de": "Schalterfarbe"
+		},
+		"iSwitchOrientation": {
+			"en": "Orientation",
+			"de": "Ausrichtung"
+		},
+		//#endregion
+
 
 		//#region Custom Text
 		"iText-Empty": {
@@ -707,6 +770,10 @@ if (vis.editMode) {
 			"en": "H = Hours, i = Minutes, s = Seconds, d = Day, M = Month, m = Monthnumber, y = Year",
 			"de": "H = Stunden, i = Minuten, s = Sekunden, d = Tag, M = Monat, m = Monatszahl, y = Jahr"
 		},
+		"iText-ToggleSwitchSettings": {
+			"en": "<b>Switch</b>",
+			"de": "<b>Schalter</b>"
+		},
 		//#endregion
 	});
 }
@@ -752,11 +819,39 @@ vis.binds["vis-inventwo"] = {
 				if (data.nav_view === vis.activeView) {
 					$(this).find(".vis-inventwo-button-new").css("background", data.iButtonActive);
 					$(this).find(".vis-inventwo-button-imageContainer img").attr("src", data.iImageTrue);
+					if (data.iImgColorTrueFilter != undefined && data.iImgColorTrueFilter != "")
+						$(this).find(".vis-inventwo-button-imageContainer img").css("filter", data.iImgColorTrueFilter.substring(8, data.iImgColorTrueFilter.length - 1));
 					$(this).find(".vis-inventwo-button-text").html(data.iTextTrue);
+					$(this).find(".vis-inventwo-button-new").css("border-color", data.iBorderColorActive);
+					if (vis.editMode) {
+						let shadowCols = {
+							iShadowColorActive: data.iShadowColorActive,
+							iShadowInnerColorActive: data.iShadowInnerColorActive
+						};
+						const shadowColors = vis.binds["vis-inventwo"].getDatapointsValues(shadowCols);
+						data.iShadowColorActive = shadowColors.iShadowColorActive;
+						data.iShadowInnerColorActive = shadowColors.iShadowInnerColorActive;
+					}
+					$(this).find(".vis-inventwo-button-new").get(0).style.setProperty("--box-shadow-col", data.iShadowColorActive);
+					$(this).find(".vis-inventwo-button-new").get(0).style.setProperty("--box-shadow-inner-col", data.iShadowInnerColorActive);
 				} else {
 					$(this).find(".vis-inventwo-button-new").css("background", data.iButtonCol);
 					$(this).find(".vis-inventwo-button-imageContainer img").attr("src", data.iImageFalse);
+					if (data.iImgColorFalseFilter != undefined && data.iImgColorFalseFilter != "")
+						$(this).find(".vis-inventwo-button-imageContainer img").css("filter", data.iImgColorFalseFilter.substring(8, data.iImgColorFalseFilter.length - 1));
 					$(this).find(".vis-inventwo-button-text").html(data.iTextFalse);
+					$(this).find(".vis-inventwo-button-new").css("border-color", data.iBorderColor);
+					if (vis.editMode) {
+						const shadowColors = vis.binds["vis-inventwo"].getDatapointsValues({
+							iShadowColor: data.iShadowColor,
+							iShadowInnerColor: data.iShadowInnerColor
+						});
+
+						data.iShadowColor = shadowColors.iShadowColor;
+						data.iShadowInnerColor = shadowColors.iShadowInnerColor;
+					}
+					$(this).find(".vis-inventwo-button-new").get(0).style.setProperty("--box-shadow-col", data.iShadowColor);
+					$(this).find(".vis-inventwo-button-new").get(0).style.setProperty("--box-shadow-inner-col", data.iShadowInnerColor);
 				}
 
 			});
@@ -765,19 +860,48 @@ vis.binds["vis-inventwo"] = {
 				let id = $(this).attr("id");
 				let data = vis.widgets[id].data;
 				let stateFound = false;
+
 				for (let i = 1; i <= data.iUniversalValueCount; i++) {
 					if (data["iView" + i] === vis.activeView) {
 						stateFound = true;
 						$(this).find(".vis-inventwo-button-new").css("background", data["iButtonActiveM" + i]);
 						$(this).find(".vis-inventwo-button-imageContainer img").attr("src", data["iImageTrue" + i]);
+						if (data["iImgColorTrueFilter" + i] != undefined && data["iImgColorTrueFilter" + i] != "")
+							$(this).find(".vis-inventwo-button-imageContainer img").css("filter", data["iImgColorTrueFilter" + i].substring(8, data["iImgColorTrueFilter" + i].length - 1));
 						$(this).find(".vis-inventwo-button-text").html(data["iTextTrue" + i]);
+						$(this).find(".vis-inventwo-button-new").css("border-color", data["iBorderColorActiveM" + i]);
+						if (vis.editMode) {
+							let shadowCols = {
+								iShadowColorActive: data["iShadowColorActiveM" + i],
+								iShadowInnerColorActive: data["iShadowInnerColorActiveM" + i]
+							};
+							const shadowColors = vis.binds["vis-inventwo"].getDatapointsValues(shadowCols);
+							data["iShadowColorActiveM" + i] = shadowColors.iShadowColorActive;
+							data["iShadowInnerColorActiveM" + i] = shadowColors.iShadowInnerColorActive;
+						}
+						$(this).find(".vis-inventwo-button-new").get(0).style.setProperty("--box-shadow-col", data["iShadowColorActiveM" + i]);
+						$(this).find(".vis-inventwo-button-new").get(0).style.setProperty("--box-shadow-inner-col", data["iShadowInnerColorActiveM" + i]);
 						break;
 					}
 				}
 				if (!stateFound) {
 					$(this).find(".vis-inventwo-button-new").css("background", data.iButtonCol);
 					$(this).find(".vis-inventwo-button-imageContainer img").attr("src", data.iImageFalse);
+					if (data.iImgColorFalseFilter != undefined && data.iImgColorFalseFilter != "")
+						$(this).find(".vis-inventwo-button-imageContainer img").css("filter", data.iImgColorFalseFilter.substring(8, data.iImgColorFalseFilter.length - 1));
 					$(this).find(".vis-inventwo-button-text").html(data.iTextFalse);
+					$(this).find(".vis-inventwo-button-new").css("border-color", data.iBorderColor);
+					if (vis.editMode) {
+						const shadowColors = vis.binds["vis-inventwo"].getDatapointsValues({
+							iShadowColor: data.iShadowColor,
+							iShadowInnerColor: data.iShadowInnerColor
+						});
+
+						data.iShadowColor = shadowColors.iShadowColor;
+						data.iShadowInnerColor = shadowColors.iShadowInnerColor;
+					}
+					$(this).find(".vis-inventwo-button-new").get(0).style.setProperty("--box-shadow-col", data.iShadowColor);
+					$(this).find(".vis-inventwo-button-new").get(0).style.setProperty("--box-shadow-inner-col", data.iShadowInnerColor);
 				}
 
 			});
@@ -813,8 +937,7 @@ vis.binds["vis-inventwo"] = {
 			text = "iText-BackColorRadio";
 		} else if (data[1] === "valueListInfoText") {
 			text = "iText-valueListInfoText";
-		}
-		else if (data[1] === "tblDateInfo") {
+		} else if (data[1] === "tblDateInfo") {
 			text = "iText-tblDateInfo";
 		}
 
@@ -829,14 +952,15 @@ vis.binds["vis-inventwo"] = {
 
 		if (!vis.editMode) {
 			var moved = false;
-			$this.parent().on("click touchend", function () {
+			$this.parent().on("click", function (e) {
+
 				if (vis.detectBounce(this)) return;
 				if (moved) return;
 
 				var val = vis.states[oid + ".val"];
 				var type = data.iValueType;
-				var valFalse = data.iValueFalse;
-				var valTrue = data.iValueTrue;
+				var valFalse = vis.binds["vis-inventwo"].convertValue(data.iValueFalse);
+				var valTrue = vis.binds["vis-inventwo"].convertValue(data.iValueTrue);
 
 				if (type == "boolean")
 					vis.setValue(oid, !val);
@@ -845,6 +969,8 @@ vis.binds["vis-inventwo"] = {
 					if (val == valFalse) {
 						if (!isNaN(valTrue))
 							valTrue = parseFloat(valTrue);
+
+
 						vis.setValue(oid, valTrue);
 					} else {
 						if (!isNaN(valFalse))
@@ -908,13 +1034,17 @@ vis.binds["vis-inventwo"] = {
 		var oid = data.oid;
 
 		if (!vis.editMode) {
-
+			var moved = false;
 			$this.parent().on("click touchend", function () {
-				if (!isNaN(data.value))
-					data.value = parseFloat(data.value);
+
+				if (vis.detectBounce(this)) return;
+				if (moved) return;
+
+				let val = vis.binds["vis-inventwo"].convertValue(data.value);
 
 				let oldValue = vis.states[oid + ".val"];
-				vis.setValue(oid, data.value);
+
+				vis.setValue(oid, val);
 
 				if (type == "universal") {
 					let shadow = data.iShadowXOffset + "px " + data.iShadowYOffset + "px " + data.iShadowBlur + "px " + data.iShadowSpread + "px " + data.iShadowColorActive + ",inset " +
@@ -973,10 +1103,10 @@ vis.binds["vis-inventwo"] = {
 								shadowCol = data["iShadowColorActiveM" + i];
 								shadowColInner = data["iShadowInnerColorActiveM" + i];
 								borderCol = data["iBorderColorActiveM" + i];
-								if (data.attr("iImageTrue" + i) != undefined)
-									img = data.attr("iImageTrue" + i);
-								if (data.attr("iTextTrue" + i) != undefined)
-									txt = data.attr("iTextTrue" + i);
+								if (data["iImageTrue" + i] != undefined)
+									img = data["iImageTrue" + i];
+								if (data["iTextTrue" + i] != undefined)
+									txt = data["iTextTrue" + i];
 								break;
 							}
 						}
@@ -1001,6 +1131,11 @@ vis.binds["vis-inventwo"] = {
 						vis.setValue(oid, oldValue);
 					}, data.iStateResetValueTime);
 				}
+			})
+				.on("touchmove", function () {
+					moved = true;
+				}).on("touchstart", function () {
+				moved = false;
 			});
 
 		}
@@ -1061,7 +1196,22 @@ vis.binds["vis-inventwo"] = {
 			}
 		}
 
+		let timeout = null;
+
 		function create(el, data) {
+
+			if (vis.editMode) {
+				setTimeout(function () {
+					vis.binds["vis-inventwo"].updateJsonTableFields();
+				}, 100);
+
+				$(el).parent().on("mouseup click", function () {
+					setTimeout(function () {
+						vis.binds["vis-inventwo"].updateJsonTableFields();
+					}, 100);
+				});
+			}
+
 			let output = "";
 
 			if (data.oid === "" || data.oid === "nothing_selected" || data.oid === undefined) {
@@ -1099,7 +1249,18 @@ vis.binds["vis-inventwo"] = {
 						$(el).parent().css("overflow-x", "hidden");
 					}
 
-					output = "<table class='vis-inventwo-json-table' style='opacity: " + data.iOpacityAll + ";'>";
+					let tblBorder = "";
+					if (data.iBorderRemoveDouble) {
+						tblBorder = "border-collapse:collapse;";
+					}
+
+					let border = "";
+					border += "border-left: " + data.iBorderSize + "px " + data.iBorderStyleLeft + " " + data.iBorderColor + ";";
+					border += "border-right: " + data.iBorderSize + "px " + data.iBorderStyleRight + " " + data.iBorderColor + ";";
+					border += "border-top: " + data.iBorderSize + "px " + data.iBorderStyleUp + " " + data.iBorderColor + ";";
+					border += "border-bottom: " + data.iBorderSize + "px " + data.iBorderStyleDown + " " + data.iBorderColor + ";";
+
+					output = "<table class='vis-inventwo-json-table' style='opacity: " + data.iOpacityAll + "; " + tblBorder + "'>";
 					if (data.iTblShowHead) {
 						output += "<thead style='background:" + data.iTblHeaderColor + "; color: " + data.iTblHeaderTextColor + "'>";
 						for (let i = 0; i < colLimit; i++) {
@@ -1109,13 +1270,13 @@ vis.binds["vis-inventwo"] = {
 									colWidth = data["iColWidth" + (i + 1)];
 								}
 								if (data["iColName" + (i + 1)] !== undefined && data["iColName" + (i + 1)] !== "") {
-									output += "<th style='width: " + colWidth + ";padding-bottom: " + data.iRowSpacing + "px;padding-top: " + data.iRowSpacing + "px;'>" + data["iColName" + (i + 1)] + "</th>";
+									output += "<th style='width: " + colWidth + ";padding-bottom: " + data.iRowSpacing + "px;padding-top: " + data.iRowSpacing + "px; " + border + "'>" + data["iColName" + (i + 1)] + "</th>";
 								} else {
 									//if(Object.keys(jsondata[0])[i].charAt(0) !== "_")
 									if (data["iColAttr" + (i + 1)] !== undefined && data["iColAttr" + (i + 1)] !== "") {
-										output += "<th style='width: " + colWidth + ";padding-bottom: " + data.iRowSpacing + "px;padding-top: " + data.iRowSpacing + "px;'>" + data["iColAttr" + (i + 1)] + "</th>";
+										output += "<th style='width: " + colWidth + ";padding-bottom: " + data.iRowSpacing + "px;padding-top: " + data.iRowSpacing + "px; " + border + "'>" + data["iColAttr" + (i + 1)] + "</th>";
 									} else {
-										output += "<th style='width: " + colWidth + ";padding-bottom: " + data.iRowSpacing + "px;padding-top: " + data.iRowSpacing + "px;'>" + Object.keys(jsondata[0])[i] + "</th>";
+										output += "<th style='width: " + colWidth + ";padding-bottom: " + data.iRowSpacing + "px;padding-top: " + data.iRowSpacing + "px; " + border + "'>" + Object.keys(jsondata[0])[i] + "</th>";
 									}
 								}
 							}
@@ -1155,11 +1316,16 @@ vis.binds["vis-inventwo"] = {
 										break;
 									case "datetime":
 										if (data["iTblCellDatetimeFormat" + (i + 1)] != "") {
-											if (!isNaN(cellValue) && cellValue.toString().length > 10)
-												cellValue = cellValue;
-											else if (!isNaN(cellValue) && cellValue.toString().length <= 10)
-												cellValue = cellValue * 1000;
+											let datetime = null;
+											if (isNaN(cellValue) == true) {
+												datetime = new Date(cellValue).getTime();//Date.parse(cellValue) / 1000;
+											}
+											else{
+												datetime = parseInt(cellValue);
+											}
 
+											if (cellValue.toString().length == 13)
+												datetime = datetime / 1000;
 											var getDateString = function (date, format) {
 												var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 													getPaddedComp = function (comp) {
@@ -1185,10 +1351,12 @@ vis.binds["vis-inventwo"] = {
 													}
 												}
 												return formattedDate;
-											};
 
-											var formattedDate = getDateString(new Date(cellValue), data["iTblCellDatetimeFormat" + (i + 1)]);
+											};
+											var formattedDate = getDateString(new Date(datetime), data["iTblCellDatetimeFormat" + (i + 1)]);
 											cellValue = formattedDate;
+
+
 										}
 										break;
 									case "image":
@@ -1201,7 +1369,7 @@ vis.binds["vis-inventwo"] = {
 								if (cellValue == undefined)
 									cellValue = "";
 
-								output += "<td style='width: " + colWidth + ";padding-bottom: " + data.iRowSpacing + "px;padding-top: " + data.iRowSpacing + "px;'>" + cellValue + "</td>";
+								output += "<td style='width: " + colWidth + ";padding-bottom: " + data.iRowSpacing + "px;padding-top: " + data.iRowSpacing + "px; " + border + " text-align: " + data["iTblTextAlign" + (i + 1)] + ";'>" + cellValue + "</td>";
 							}
 						}
 						output += "</tr>";
@@ -1215,11 +1383,24 @@ vis.binds["vis-inventwo"] = {
 				}
 			}
 			$(el).html(output);
+
 		}
 
 		vis.states.bind(data.oid + ".val", function (e, newVal, oldVal) {
 			create(el, data);
 		});
+
+		if (data.oid !== "" && data.oid !== "nothing_selected" && data.oid !== undefined && vis.states.attr(data.oid + ".val") != undefined && vis.states.attr(data.oid + ".val") != "" &&
+			vis.states.attr(data.oid + ".val") != "null" && typeof vis.states.attr(data.oid + ".val") != "null") {
+
+			if(data.iTableRefreshRate > 0 && !vis.editMode) {
+
+				setInterval(function () {
+					create(el, data);
+				}, data.iTableRefreshRate * 1000);
+			}
+
+		}
 
 		create(el, data);
 	},
@@ -1234,8 +1415,7 @@ vis.binds["vis-inventwo"] = {
 				if (vis.detectBounce(this)) return;
 				if (moved) return;
 
-				if (!isNaN(val))
-					val = parseFloat(val);
+				val = vis.binds["vis-inventwo"].convertValue(val);
 
 				vis.setValue(oid, val);
 
@@ -1246,6 +1426,32 @@ vis.binds["vis-inventwo"] = {
 			});
 
 		}
+	},
+
+	//Aktualisierung der Felder in VIS Edit für Universal und Multi Widget
+	updateJsonTableFields: function (wid, view) {
+
+		vis.activeWidgets.forEach(function (el) {
+			let data = vis.views[vis.activeView].widgets[el].data;
+
+			for (let i = 1; i <= data.iColCount; i++) {
+				if (data["iTblCellFormat" + i] == "normal") {
+					vis.hideShowAttr("iTblCellDatetimeFormat" + i, false);
+					vis.hideShowAttr("iTblCellDatetimeFormatInfo" + i, false);
+					vis.hideShowAttr("iTblCellImageSize" + i, false);
+				} else if (data["iTblCellFormat" + i] == "datetime") {
+					vis.hideShowAttr("iTblCellDatetimeFormat" + i, true);
+					vis.hideShowAttr("iTblCellDatetimeFormatInfo" + i, true);
+					vis.hideShowAttr("iTblCellImageSize" + i, false);
+				} else if (data["iTblCellFormat" + i] == "image") {
+					vis.hideShowAttr("iTblCellDatetimeFormat" + i, false);
+					vis.hideShowAttr("iTblCellDatetimeFormatInfo" + i, false);
+					vis.hideShowAttr("iTblCellImageSize" + i, true);
+				}
+
+			}
+		});
+
 	},
 
 	//Aktualisierung der Felder in VIS Edit für Universal und Multi Widget
@@ -1268,10 +1474,6 @@ vis.binds["vis-inventwo"] = {
 				vis.hideShowAttr("iStateResetValueTime", false);
 				for (let i = 1; i <= data.iUniversalValueCount; i++) {
 					vis.hideShowAttr("oid" + i, true);
-					vis.hideShowAttr("iTextFalse" + i, true);
-					vis.hideShowAttr("iTextTrue" + i, true);
-					vis.hideShowAttr("iImageFalse" + i, true);
-					vis.hideShowAttr("iImageTrue" + i, true);
 					vis.hideShowAttr("iValue" + i, true);
 					vis.hideShowAttr("iView" + i, false);
 				}
@@ -1288,10 +1490,6 @@ vis.binds["vis-inventwo"] = {
 				vis.hideShowAttr("iStateResetValueTime", true);
 				for (let i = 1; i <= data.iUniversalValueCount; i++) {
 					vis.hideShowAttr("oid" + i, true);
-					vis.hideShowAttr("iTextFalse" + i, true);
-					vis.hideShowAttr("iTextTrue" + i, true);
-					vis.hideShowAttr("iImageFalse" + i, true);
-					vis.hideShowAttr("iImageTrue" + i, true);
 					vis.hideShowAttr("iValue" + i, true);
 					vis.hideShowAttr("iView" + i, false);
 				}
@@ -1308,10 +1506,6 @@ vis.binds["vis-inventwo"] = {
 				vis.hideShowAttr("iStateResetValueTime", false);
 				for (let i = 1; i <= data.iUniversalValueCount; i++) {
 					vis.hideShowAttr("oid" + i, false);
-					vis.hideShowAttr("iTextFalse" + i, true);
-					vis.hideShowAttr("iTextTrue" + i, true);
-					vis.hideShowAttr("iImageFalse" + i, true);
-					vis.hideShowAttr("iImageTrue" + i, true);
 					vis.hideShowAttr("iValue" + i, false);
 					vis.hideShowAttr("iView" + i, true);
 				}
@@ -1335,10 +1529,6 @@ vis.binds["vis-inventwo"] = {
 				}
 				for (let i = 1; i <= data.iUniversalValueCount; i++) {
 					vis.hideShowAttr("oid" + i, true);
-					vis.hideShowAttr("iTextFalse" + i, true);
-					vis.hideShowAttr("iTextTrue" + i, true);
-					vis.hideShowAttr("iImageFalse" + i, true);
-					vis.hideShowAttr("iImageTrue" + i, true);
 					vis.hideShowAttr("iValue" + i, true);
 					vis.hideShowAttr("iView" + i, false);
 				}
@@ -1387,7 +1577,7 @@ vis.binds["vis-inventwo"] = {
 			let img = "";
 			let txt = "";
 			let imgBlink = 0;
-			let imgColInvert = 0;
+			let imgColorFilter = "";
 
 			if (type == "multi") {
 				let found = false;
@@ -1407,12 +1597,14 @@ vis.binds["vis-inventwo"] = {
 						shadowCol = dataNew["iShadowColorActiveM" + i];
 						shadowColInner = dataNew["iShadowInnerColorActiveM" + i];
 						borderCol = dataNew["iBorderColorActiveM" + i];
+
+						imgColorFilter = dataNew["iImgColorTrue" + i];
+
 						if (dataNew["iImageTrue" + i] != undefined)
 							img = dataNew["iImageTrue" + i];
 						if (dataNew["iTextTrue" + i] != undefined)
 							txt = dataNew["iTextTrue" + i];
 						imgBlink = dataNew["iImgBlinkTrue" + i];
-						imgColInvert = dataNew["iInvertImageCol" + i];
 						found = true;
 						break;
 					}
@@ -1422,17 +1614,15 @@ vis.binds["vis-inventwo"] = {
 					shadowCol = dataNew.iShadowColor;
 					shadowColInner = dataNew.iShadowInnerColor;
 					borderCol = dataNew.iBorderColor;
+
+					imgColorFilter = dataNew.iImgColorFalse;
+
 					if (dataNew.iImageFalse != undefined)
 						img = dataNew.iImageFalse;
-					else {
-						img = "";
-					}
 					if (dataNew.iTextFalse != undefined)
 						txt = dataNew.iTextFalse;
-					else
-						txt = "";
+
 					imgBlink = dataNew.iImgBlinkFalse;
-					imgColInvert = dataNew.iInvertImageCol;
 				}
 			} else if (type == "universal") {
 				if ((dataNew.iUniversalWidgetType == "Navigation" && dataNew.nav_view === vis.activeView) ||
@@ -1450,9 +1640,12 @@ vis.binds["vis-inventwo"] = {
 					shadowColInner = dataNew.iShadowInnerColorActive;
 					borderCol = dataNew.iBorderColorActive;
 
-					if (dataNew.iImageTrue != undefined)
+					imgColorFilter = dataNew.iImgColorTrue;
+
+
+					if (dataNew.iImageTrue != undefined && dataNew.iImageTrue != "")
 						img = dataNew.iImageTrue;
-					if (dataNew.iTextFalse != undefined)
+					if (dataNew.iTextTrue != undefined && dataNew.iTextTrue != "")
 						txt = dataNew.iTextTrue;
 
 					imgBlink = dataNew.iImgBlinkTrue;
@@ -1461,28 +1654,24 @@ vis.binds["vis-inventwo"] = {
 					shadowCol = dataNew.iShadowColor;
 					shadowColInner = dataNew.iShadowInnerColor;
 					borderCol = dataNew.iBorderColor;
-					if (dataNew.iImageFalse != undefined)
+
+					imgColorFilter = dataNew.iImgColorFalse;
+
+					if (dataNew.iImageFalse != undefined && dataNew.iImageFalse != "")
 						img = dataNew.iImageFalse;
-					else {
-						img = "";
-					}
-					if (dataNew.iTextFalse != undefined)
+					if (dataNew.iTextFalse != undefined && dataNew.iTextFalse != "")
 						txt = dataNew.iTextFalse;
-					else
-						txt = "";
+
 					imgBlink = dataNew.iImgBlinkFalse;
 
-
 				}
-
-				imgColInvert = dataNew.iInvertImageCol;
 			}
-
 
 			imgBlink = imgBlink / 1000;
 
-			let shadow = dataNew.iShadowXOffset + "px " + dataNew.iShadowYOffset + "px " + dataNew.iShadowBlur + "px " + dataNew.iShadowSpread + "px " + shadowCol + ",inset " +
-				dataNew.iShadowInnerXOffset + "px " + dataNew.iShadowInnerYOffset + "px " + dataNew.iShadowInnerBlur + "px " + dataNew.iShadowInnerSpread + "px " + shadowColInner;
+			let shadow = dataNew.iShadowXOffset + "px " + dataNew.iShadowYOffset + "px " + dataNew.iShadowBlur + "px " + dataNew.iShadowSpread + "px var(--box-shadow-col),inset " +
+				dataNew.iShadowInnerXOffset + "px " + dataNew.iShadowInnerYOffset + "px " + dataNew.iShadowInnerBlur + "px " + dataNew.iShadowInnerSpread + "px var(--box-shadow-inner-col); --box-shadow-col: "
+				+ shadowCol + "; --box-shadow-inner-col: " + shadowColInner;
 			let border = dataNew.iBorderSize + "px " + dataNew.iBorderStyle + " " + borderCol;
 			let borderRadius = dataNew.iCornerRadiusUL + "px " + dataNew.iCornerRadiusUR + "px " + dataNew.iCornerRadiusLR + "px " + dataNew.iCornerRadiusLL + "px";
 
@@ -1558,8 +1747,7 @@ vis.binds["vis-inventwo"] = {
 							 align-self: ` + imgAlign + `;
 							 margin: ` + imgMargin + `;">
 							<img src="` + img + `" width="` + dataNew.iIconSize + `"
-								 style="filter: invert(` + Number(imgColInvert) + `);
-								 		transform: scaleX(` + flip + `) rotateZ(` + dataNew.iImgRotation + `deg);
+								 style="transform: scaleX(` + flip + `) rotateZ(` + dataNew.iImgRotation + `deg);
 								 		animation:blink ` + imgBlink + `s infinite;"> 
 						</div>
 						
@@ -1575,7 +1763,17 @@ vis.binds["vis-inventwo"] = {
 				</div>
 			</div>`;
 
+
 			$(el).html(html);
+
+			vis.binds["vis-inventwo"].getImgColorFilter(imgColorFilter, dataNew.wid);
+
+			//Felder beim reinziehen eines Widgets aktualisieren
+			if (vis.editMode) {
+				setTimeout(function () {
+					vis.binds["vis-inventwo"].updateUniversalDataFields();
+				}, 100);
+			}
 
 			//Bindings
 			if (createEvents) {
@@ -1593,10 +1791,17 @@ vis.binds["vis-inventwo"] = {
 					$(el).parent().css("cursor", "default");
 				}
 
-				if(vis.editMode) {
+				if (vis.editMode) {
 					$(el).parent().on("mouseup click", function () {
 						setTimeout(function () {
 							vis.binds["vis-inventwo"].updateUniversalDataFields();
+							//vis.binds["vis-inventwo"].hideImgFilterFields();
+						}, 100);
+					});
+
+					$(".group-control").on("mouseup click", function () {
+						setTimeout(function () {
+							vis.binds["vis-inventwo"].hideImgFilterFields();
 						}, 100);
 					});
 				}
@@ -1675,6 +1880,535 @@ vis.binds["vis-inventwo"] = {
 
 		}
 
-	}
+	},
+
+	/*
+		Generierung der Filter um ein Icon zu färben. Der Code zur stammt NICHT von uns.
+		Ich hab ihn nur etwas abgeändert
+
+		Credits goes to MultiplyByZer0
+		https://stackoverflow.com/questions/42966641/how-to-transform-black-into-any-given-color-using-only-css-filters/43960991#43960991
+
+		Code in Codepen -> https://codepen.io/sosuke/pen/Pjoqqp
+	 */
+	colorFilterGenerator: function (hex) {
+
+		console.log("COLOR FILTER");
+
+		class Color {
+			constructor(r, g, b) {
+				this.set(r, g, b);
+			}
+
+			toString() {
+				return `rgb(${Math.round(this.r)}, ${Math.round(this.g)}, ${Math.round(this.b)})`;
+			}
+
+			set(r, g, b) {
+				this.r = this.clamp(r);
+				this.g = this.clamp(g);
+				this.b = this.clamp(b);
+			}
+
+			hueRotate(angle = 0) {
+				angle = angle / 180 * Math.PI;
+				const sin = Math.sin(angle);
+				const cos = Math.cos(angle);
+
+				this.multiply([
+					0.213 + cos * 0.787 - sin * 0.213,
+					0.715 - cos * 0.715 - sin * 0.715,
+					0.072 - cos * 0.072 + sin * 0.928,
+					0.213 - cos * 0.213 + sin * 0.143,
+					0.715 + cos * 0.285 + sin * 0.140,
+					0.072 - cos * 0.072 - sin * 0.283,
+					0.213 - cos * 0.213 - sin * 0.787,
+					0.715 - cos * 0.715 + sin * 0.715,
+					0.072 + cos * 0.928 + sin * 0.072,
+				]);
+			}
+
+			grayscale(value = 1) {
+				this.multiply([
+					0.2126 + 0.7874 * (1 - value),
+					0.7152 - 0.7152 * (1 - value),
+					0.0722 - 0.0722 * (1 - value),
+					0.2126 - 0.2126 * (1 - value),
+					0.7152 + 0.2848 * (1 - value),
+					0.0722 - 0.0722 * (1 - value),
+					0.2126 - 0.2126 * (1 - value),
+					0.7152 - 0.7152 * (1 - value),
+					0.0722 + 0.9278 * (1 - value),
+				]);
+			}
+
+			sepia(value = 1) {
+				this.multiply([
+					0.393 + 0.607 * (1 - value),
+					0.769 - 0.769 * (1 - value),
+					0.189 - 0.189 * (1 - value),
+					0.349 - 0.349 * (1 - value),
+					0.686 + 0.314 * (1 - value),
+					0.168 - 0.168 * (1 - value),
+					0.272 - 0.272 * (1 - value),
+					0.534 - 0.534 * (1 - value),
+					0.131 + 0.869 * (1 - value),
+				]);
+			}
+
+			saturate(value = 1) {
+				this.multiply([
+					0.213 + 0.787 * value,
+					0.715 - 0.715 * value,
+					0.072 - 0.072 * value,
+					0.213 - 0.213 * value,
+					0.715 + 0.285 * value,
+					0.072 - 0.072 * value,
+					0.213 - 0.213 * value,
+					0.715 - 0.715 * value,
+					0.072 + 0.928 * value,
+				]);
+			}
+
+			multiply(matrix) {
+				const newR = this.clamp(this.r * matrix[0] + this.g * matrix[1] + this.b * matrix[2]);
+				const newG = this.clamp(this.r * matrix[3] + this.g * matrix[4] + this.b * matrix[5]);
+				const newB = this.clamp(this.r * matrix[6] + this.g * matrix[7] + this.b * matrix[8]);
+				this.r = newR;
+				this.g = newG;
+				this.b = newB;
+			}
+
+			brightness(value = 1) {
+				this.linear(value);
+			}
+
+			contrast(value = 1) {
+				this.linear(value, -(0.5 * value) + 0.5);
+			}
+
+			linear(slope = 1, intercept = 0) {
+				this.r = this.clamp(this.r * slope + intercept * 255);
+				this.g = this.clamp(this.g * slope + intercept * 255);
+				this.b = this.clamp(this.b * slope + intercept * 255);
+			}
+
+			invert(value = 1) {
+				this.r = this.clamp((value + this.r / 255 * (1 - 2 * value)) * 255);
+				this.g = this.clamp((value + this.g / 255 * (1 - 2 * value)) * 255);
+				this.b = this.clamp((value + this.b / 255 * (1 - 2 * value)) * 255);
+			}
+
+			hsl() {
+				// Code taken from https://stackoverflow.com/a/9493060/2688027, licensed under CC BY-SA.
+				const r = this.r / 255;
+				const g = this.g / 255;
+				const b = this.b / 255;
+				const max = Math.max(r, g, b);
+				const min = Math.min(r, g, b);
+				let h, s, l = (max + min) / 2;
+
+				if (max === min) {
+					h = s = 0;
+				} else {
+					const d = max - min;
+					s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+					switch (max) {
+						case r:
+							h = (g - b) / d + (g < b ? 6 : 0);
+							break;
+
+						case g:
+							h = (b - r) / d + 2;
+							break;
+
+						case b:
+							h = (r - g) / d + 4;
+							break;
+					}
+					h /= 6;
+				}
+
+				return {
+					h: h * 100,
+					s: s * 100,
+					l: l * 100,
+				};
+			}
+
+			clamp(value) {
+				if (value > 255) {
+					value = 255;
+				} else if (value < 0) {
+					value = 0;
+				}
+				return value;
+			}
+		}
+
+		class Solver {
+			constructor(target, baseColor) {
+				this.target = target;
+				this.targetHSL = target.hsl();
+				this.reusedColor = new Color(0, 0, 0);
+			}
+
+			solve() {
+				const result = this.solveNarrow(this.solveWide());
+				return {
+					values: result.values,
+					loss: result.loss,
+					filter: this.css(result.values),
+				};
+			}
+
+			solveWide() {
+				const A = 5;
+				const c = 15;
+				const a = [60, 180, 18000, 600, 1.2, 1.2];
+
+				let best = {loss: Infinity};
+				for (let i = 0; best.loss > 25 && i < 3; i++) {
+					const initial = [50, 20, 3750, 50, 100, 100];
+					const result = this.spsa(A, a, c, initial, 1000);
+					if (result.loss < best.loss) {
+						best = result;
+					}
+				}
+				return best;
+			}
+
+			solveNarrow(wide) {
+				const A = wide.loss;
+				const c = 2;
+				const A1 = A + 1;
+				const a = [0.25 * A1, 0.25 * A1, A1, 0.25 * A1, 0.2 * A1, 0.2 * A1];
+				return this.spsa(A, a, c, wide.values, 500);
+			}
+
+			spsa(A, a, c, values, iters) {
+				const alpha = 1;
+				const gamma = 0.16666666666666666;
+
+				let best = null;
+				let bestLoss = Infinity;
+				const deltas = new Array(6);
+				const highArgs = new Array(6);
+				const lowArgs = new Array(6);
+
+				for (let k = 0; k < iters; k++) {
+					const ck = c / Math.pow(k + 1, gamma);
+					for (let i = 0; i < 6; i++) {
+						deltas[i] = Math.random() > 0.5 ? 1 : -1;
+						highArgs[i] = values[i] + ck * deltas[i];
+						lowArgs[i] = values[i] - ck * deltas[i];
+					}
+
+					const lossDiff = this.loss(highArgs) - this.loss(lowArgs);
+					for (let i = 0; i < 6; i++) {
+						const g = lossDiff / (2 * ck) * deltas[i];
+						const ak = a[i] / Math.pow(A + k + 1, alpha);
+						values[i] = fix(values[i] - ak * g, i);
+					}
+
+					const loss = this.loss(values);
+					if (loss < bestLoss) {
+						best = values.slice(0);
+						bestLoss = loss;
+					}
+				}
+				return {values: best, loss: bestLoss};
+
+				function fix(value, idx) {
+					let max = 100;
+					if (idx === 2 /* saturate */) {
+						max = 7500;
+					} else if (idx === 4 /* brightness */ || idx === 5 /* contrast */) {
+						max = 200;
+					}
+
+					if (idx === 3 /* hue-rotate */) {
+						if (value > max) {
+							value %= max;
+						} else if (value < 0) {
+							value = max + value % max;
+						}
+					} else if (value < 0) {
+						value = 0;
+					} else if (value > max) {
+						value = max;
+					}
+					return value;
+				}
+			}
+
+			loss(filters) {
+				// Argument is array of percentages.
+				const color = this.reusedColor;
+				color.set(0, 0, 0);
+
+				color.invert(filters[0] / 100);
+				color.sepia(filters[1] / 100);
+				color.saturate(filters[2] / 100);
+				color.hueRotate(filters[3] * 3.6);
+				color.brightness(filters[4] / 100);
+				color.contrast(filters[5] / 100);
+
+				const colorHSL = color.hsl();
+				return (
+					Math.abs(color.r - this.target.r) +
+					Math.abs(color.g - this.target.g) +
+					Math.abs(color.b - this.target.b) +
+					Math.abs(colorHSL.h - this.targetHSL.h) +
+					Math.abs(colorHSL.s - this.targetHSL.s) +
+					Math.abs(colorHSL.l - this.targetHSL.l)
+				);
+			}
+
+			css(filters) {
+				function fmt(idx, multiplier = 1) {
+					return Math.round(filters[idx] * multiplier);
+				}
+
+				return `filter: invert(${fmt(0)}%) sepia(${fmt(1)}%) saturate(${fmt(2)}%) hue-rotate(${fmt(3, 3.6)}deg) brightness(${fmt(4)}%) contrast(${fmt(5)}%);`;
+			}
+		}
+
+
+		function hexToRgb(hex) {
+			if ((/^#([A-Fa-f0-9]{3}$)|([A-Fa-f0-9]{6}$)/.test(hex))) {
+				// Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+				const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+				hex = hex.replace(shorthandRegex, (m, r, g, b) => {
+					return r + r + g + g + b + b;
+				});
+
+				const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+
+				return result
+					? [
+						parseInt(result[1], 16),
+						parseInt(result[2], 16),
+						parseInt(result[3], 16),
+					]
+					: null;
+			} else {
+				return null;
+			}
+		}
+
+		let filter = "";
+
+		if (hex != undefined && hex != "") {
+			let rgb = hexToRgb(hex);
+
+			if (rgb != null && rgb.length === 3) {
+				let loss = 999;
+				for (let i = 0; i < 10; i++) {
+					const color = new Color(rgb[0], rgb[1], rgb[2]);
+					const solver = new Solver(color);
+					const result = solver.solve();
+
+					if (result.loss < loss) {
+						filter = result.filter;
+					}
+				}
+			}
+		}
+
+		return filter;
+
+	},
+
+	//Aktualisierung der Filter für das Icon
+	getImgColorFilter: function (color, wid) {
+
+		let filter = "";
+
+		vis.conn._socket.emit('getState', "vis-inventwo.0.CSS." + color, function (err, obj) {
+			if(obj != undefined){
+				filter = obj.val;
+			}
+			else{
+				filter = vis.binds["vis-inventwo"].colorFilterGenerator(color);
+				vis.conn._socket.emit("setObject", "vis-inventwo.0.CSS." + color, {
+					type: "state",
+					common: {
+						name: color,
+						type: "string",
+						role: "inventwo.color",
+						read: true,
+						write: true,
+					},
+					native: {},
+				});
+
+				vis.setValue("vis-inventwo.0.CSS." + color, filter);
+			}
+			$('#' + wid).find('img').css('filter', filter.substring(8, filter.length -1));
+		});
+
+	},
+
+
+	convertValue: function (val) {
+
+		if (!isNaN(val))
+			val = parseFloat(val);
+		else if (val == "true")
+			val = true;
+		else if (val == "false")
+			val = false;
+
+		console.log(typeof val);
+
+		return val;
+	},
+
+	hideImgFilterFields: function (e) {
+
+		if (vis.editMode) {
+			$(e).parent().on("mouseup click", function () {
+				setTimeout(function () {
+					vis.activeWidgets.forEach(function (el) {
+						let data = vis.views[vis.activeView].widgets[el].data;
+
+						vis.hideShowAttr("iImgColorFalseFilter", false);
+						vis.hideShowAttr("iImgColorTrueFilter", false);
+
+						for (let i = 1; i <= data.iRadiobtnsCount; i++) {
+							vis.hideShowAttr("iImgColorFalseFilter" + i, false);
+							vis.hideShowAttr("iImgColorTrueFilter" + i, false);
+						}
+
+						for (let i = 1; i <= data.iUniversalValueCount; i++) {
+							vis.hideShowAttr("iImgColorFalseFilter" + i, false);
+							vis.hideShowAttr("iImgColorTrueFilter" + i, false);
+						}
+
+
+					});
+				}, 100);
+			});
+		}
+	},
+
+	//Generierung des Universal und Multi Widgets
+	createSwitchWidget: function (el, data, style) {
+
+		vis.states.bind(data.oid + ".val", function (e, newVal, oldVal) {
+			createWidget(false);
+		});
+
+		createWidget(true);
+
+		function createWidget(createEvents) {
+			let dataNew = Object.assign({}, data);
+
+			if (vis.editMode) {
+				dataNew = vis.binds["vis-inventwo"].getDatapointsValues(dataNew);
+			}
+
+			//Farben, Text & Bild bei true oder false
+			let switchOnCol = dataNew.iSwitchColOn;
+			let switchOffCol = dataNew.iSwitchColOff;
+			let switchImg = "";
+			let switchColsSizeStyles = "";
+			let switchWidth = "";
+			let switchHeight = "";
+			let backDirection = "";
+			let flip = 1;
+			let flipStyle = "";
+
+			if (dataNew.iFlipImage) {
+				flip = -1;
+			}
+
+			if (vis.states.attr(dataNew.oid + ".val") == vis.binds["vis-inventwo"].convertValue(dataNew.iValueTrue)) {
+				switchOnCol = dataNew.iSwitchColOnActive;
+				if (dataNew.iSwitchOrientation == "vertical") {
+					switchImg = "widgets/vis-inventwo/img/ToggleSwitch/switch-1-vert-on-" + dataNew.iSwitchColor + ".png";
+				} else {
+					switchImg = "widgets/vis-inventwo/img/ToggleSwitch/switch-1-hor-on-" + dataNew.iSwitchColor + ".png";
+				}
+			} else {
+				switchOffCol = dataNew.iSwitchColOffActive;
+				if (dataNew.iSwitchOrientation == "vertical") {
+					switchImg = "widgets/vis-inventwo/img/ToggleSwitch/switch-1-vert-off-" + dataNew.iSwitchColor + ".png";
+				} else {
+					switchImg = "widgets/vis-inventwo/img/ToggleSwitch/switch-1-hor-off-" + dataNew.iSwitchColor + ".png";
+				}
+			}
+
+
+			if (dataNew.iSwitchOrientation == "vertical") {
+				switchWidth = dataNew.iSwitchSize + "px";
+				switchHeight = "calc(" + dataNew.iSwitchSize + "px" + " * 2)";
+				switchColsSizeStyles = "margin: auto; width: 90%; height: 45%;";
+				backDirection = "column";
+				flipStyle = "scaleY(" + flip + ")";
+			} else if (dataNew.iSwitchOrientation == "horizontal") {
+				switchWidth = "calc(" + dataNew.iSwitchSize + "px" + " * 2)";
+				switchHeight = dataNew.iSwitchSize + "px";
+				switchColsSizeStyles = "margin: auto; width: 45%; height: 90%;";
+				backDirection = "row";
+				flipStyle = "scaleX(" + flip + ")";
+			}
+
+			let html = `
+			<div class="vis-inventwo-class vis-widget-body" 
+				 style="position: relative; opacity: ` + dataNew.iOpacityBack + `;width: ` + switchWidth + `; height: ` + switchHeight + `; transform: ` + flipStyle + ` ">
+					<div class="vis-inventwo-button-new" style="display: flex; flex-direction: ` + backDirection + `;">
+						 <div style="` + switchColsSizeStyles + ` background: ` + switchOnCol + `;"></div>
+						 <div style="` + switchColsSizeStyles + ` background: ` + switchOffCol + `;"></div>
+					</div>
+					<div class="vis-inventwo-overlay">
+						<img src="` + switchImg + `" width="100%"> 
+					</div>
+			</div>`;
+
+			$(el).html(html);
+
+			//Bindings
+			if (createEvents) {
+				vis.binds["vis-inventwo"].handleToggleSwitch(el, dataNew);
+
+			}
+		}
+	},
+
+
+	//Switch Funktion - Datenpunktwert wechseln
+	handleToggleSwitch: function (el, data) {
+		var $this = $(el);
+
+		var oid = data.oid;
+
+		if (!vis.editMode) {
+			var moved = false;
+			$this.parent().on("click touchend", function () {
+
+				if (vis.detectBounce(this)) return;
+				if (moved) return;
+
+				var val = vis.states[oid + ".val"];
+				var valFalse = vis.binds["vis-inventwo"].convertValue(data.iValueFalse);
+				var valTrue = vis.binds["vis-inventwo"].convertValue(data.iValueTrue);
+
+				if (val == valFalse) {
+					vis.setValue(oid, valTrue);
+				} else {
+					vis.setValue(oid, valFalse);
+				}
+
+			}).on("touchmove", function () {
+				moved = true;
+			}).on("touchstart", function () {
+				moved = false;
+			});
+
+		}
+
+	},
 
 };
