@@ -2223,24 +2223,16 @@ vis.binds["vis-inventwo"] = {
 	//Aktualisierung der Filter für das Icon
 	getImgColorFilter: function (color, wid) {
 
-
 		let filter = "";
 		color = color.toLowerCase();
 
 		if(/^#[0-9A-F]{6}$/i.test(color)) {
 
-			console.log(color);
-			console.log(color.substring(1));
-			console.log("vis-inventwo.0.intern.ColorFilter." + color.substring(1));
-			console.log(vis.states.attr("vis-inventwo.0.intern.ColorFilter." + color.substring(1)));
-
 			vis.conn._socket.emit('getState', "vis-inventwo.0.intern.ColorFilter." + color.substring(1), function (err, obj) {
 				if (obj != undefined) {
-					console.log("exists - " + obj.val);
 					filter = obj.val;
 				} else {
 					filter = vis.binds["vis-inventwo"].colorFilterGenerator(color);
-					console.log("not exists - " + filter);
 					vis.conn._socket.emit("setObject", "vis-inventwo.0.intern.ColorFilter." + color.substring(1), {
 						type: "state",
 						common: {
