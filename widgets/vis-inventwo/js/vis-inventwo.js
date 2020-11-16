@@ -2223,6 +2223,7 @@ vis.binds["vis-inventwo"] = {
 	//Aktualisierung der Filter für das Icon
 	getImgColorFilter: function (color, wid) {
 
+
 		let filter = "";
 		color = color.toLowerCase();
 
