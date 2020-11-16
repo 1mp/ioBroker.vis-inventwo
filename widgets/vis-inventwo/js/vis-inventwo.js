@@ -2224,29 +2224,39 @@ vis.binds["vis-inventwo"] = {
 	getImgColorFilter: function (color, wid) {
 
 		let filter = "";
+		color = color.toLowerCase();
 
-		vis.conn._socket.emit('getState', "vis-inventwo.0.CSS." + color, function (err, obj) {
-			if(obj != undefined){
-				filter = obj.val;
-			}
-			else{
-				filter = vis.binds["vis-inventwo"].colorFilterGenerator(color);
-				vis.conn._socket.emit("setObject", "vis-inventwo.0.CSS." + color, {
-					type: "state",
-					common: {
-						name: color,
-						type: "string",
-						role: "inventwo.color",
-						read: true,
-						write: true,
-					},
-					native: {},
-				});
+		if(/^#[0-9A-F]{6}$/i.test(color)) {
 
-				vis.setValue("vis-inventwo.0.CSS." + color, filter);
-			}
-			$('#' + wid).find('img').css('filter', filter.substring(8, filter.length -1));
-		});
+			console.log(color);
+			console.log(color.substring(1));
+			console.log("vis-inventwo.0.intern.ColorFilter." + color.substring(1));
+			console.log(vis.states.attr("vis-inventwo.0.intern.ColorFilter." + color.substring(1)));
+
+			vis.conn._socket.emit('getState', "vis-inventwo.0.intern.ColorFilter." + color.substring(1), function (err, obj) {
+				if (obj != undefined) {
+					console.log("exists - " + obj.val);
+					filter = obj.val;
+				} else {
+					filter = vis.binds["vis-inventwo"].colorFilterGenerator(color);
+					console.log("not exists - " + filter);
+					vis.conn._socket.emit("setObject", "vis-inventwo.0.intern.ColorFilter." + color.substring(1), {
+						type: "state",
+						common: {
+							name: color,
+							type: "string",
+							role: "inventwo.color",
+							read: true,
+							write: true,
+						},
+						native: {},
+					});
+
+					vis.setValue("vis-inventwo.0.intern.ColorFilter." + color.substring(1), filter);
+				}
+				$('#' + wid).find('img').css('filter', filter.substring(8, filter.length - 1));
+			});
+		}
 
 	},
 
